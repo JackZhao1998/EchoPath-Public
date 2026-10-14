@@ -3,8 +3,9 @@
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-wordmark-dark.svg">
-    <img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" alt="EchoPath">
+    <img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" align="middle" alt="EchoPath">
   </picture>
+  (Windows)
 </h1>
 
 <p><strong>Good work, on repeat.</strong></p>
