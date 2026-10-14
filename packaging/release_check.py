@@ -33,6 +33,8 @@ def anchors(text):
 
 
 def check_links(root, files):
+    # Windows runners can expose TEMP through an 8.3 alias; compare resolved paths.
+    root = Path(root).resolve()
     checked = 0
     for relative in files:
         if relative.suffix != '.md':
