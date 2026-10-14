@@ -14,6 +14,20 @@
 <p><strong>Good work, on repeat.</strong></p>
 <p>Desktop workflows your agent can learn and reuse.</p>
 
+<p><strong>A joint work of</strong></p>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://engineering.jhu.edu/ams/"><strong>Johns Hopkins University</strong></a><br>
+      Department of Applied Mathematics &amp; Statistics
+    </td>
+    <td align="center" width="50%">
+      <a href="https://amazon.jobs/content/en/teams/agi"><strong>Amazon AGI</strong></a><br>
+      Artificial General Intelligence
+    </td>
+  </tr>
+</table>
+
 <p>
   <a href="document/mcp_architecture.md"><img src="document/assets/badge-mcp.svg" height="28" alt="MCP compatible"></a>
   <a href="INSTALL.md"><img src="document/assets/badge-python.svg" height="28" alt="Python 3.10 or newer"></a>
