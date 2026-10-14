@@ -13,6 +13,7 @@ from contextlib import contextmanager
 from pathlib import Path
 
 from .run_steps import StepLog
+from .platform_utils import process_alive
 
 ACTIVE = ('queued', 'running', 'pausing', 'paused', 'stopping', 'resetting', 'awaiting_native')
 current_control = contextvars.ContextVar('echopath_control', default=None)
@@ -59,9 +60,7 @@ class RunRegistry:
             for row in rows:
                 run = dict(row)
                 if run['status'] in ACTIVE and int(run['pid']) > 0:
-                    try:
-                        os.kill(run['pid'], 0)
-                    except ProcessLookupError:
+                    if not process_alive(run['pid']):
                         run.update(status='interrupted', detail='Worker exited. Start a new run to continue.')
                         db.execute('UPDATE runs SET status=?, detail=? WHERE id=?', (run['status'], run['detail'], run['id']))
                 run['events'] = json.loads(run['events'])

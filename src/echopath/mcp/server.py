@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any, Optional
 from urllib.error import HTTPError, URLError
@@ -116,7 +117,7 @@ def build_mcp_server(
         normalized_target = str(target).strip().lower()
         if normalized_target not in ('local', 'vm'):
             raise ValueError("target must be 'local' or 'vm'.")
-        if normalized_target == 'local' and allow_desktop_control:
+        if normalized_target == 'local' and allow_desktop_control and sys.platform == 'darwin':
             return {'task': _start_local_task_via_app(echopath.config_path, task, allow_native_handoff)}
 
         from ..dashboard import TaskRunner

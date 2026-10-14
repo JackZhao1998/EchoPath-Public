@@ -76,10 +76,21 @@ memory/consolidated/crops/*
 !memory/consolidated/crops/local-demo-*/
 !memory/consolidated/crops/local-demo-*/*.png
 
-# Local test suites; retained on the development machine, excluded from Git.
-/test/
+# Local test suite; retained on the development machine, excluded from Git.
 /tests/
 test_output/
 testing_artifacts/
 *.events.jsonl
 examples/local_gui_memory_pack/test_output/
+
+test/artifacts/*
+!test/artifacts/.gitkeep
+test/browser_profile/
+test/downloads/
+test/log/
+test/memory/actions/*
+!test/memory/actions/.gitkeep
+test/memory/consolidated/index.json
+test/memory/consolidated/records/*
+!test/memory/consolidated/records/.gitkeep
+test/reports/

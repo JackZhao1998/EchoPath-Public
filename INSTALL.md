@@ -38,8 +38,10 @@ login or OS permission prompt needs your input.
 - macOS: the optional native menu-bar app needs macOS 13+, Xcode Command Line
   Tools (`xcode-select --install`), and a Python build providing `libpython`
   (uv-managed or python.org Python recommended).
-- Linux and Windows: install the runtime, MCP server and web Control Room. No
-  native menu-bar app is built. Local Linux control needs a graphical X11
+- Windows: install the runtime, MCP server and browser Control Room. `--app`
+  creates a Start menu shortcut to the system tray controls. See the
+  [Windows setup guide](document/windows_setup.md) for a visible Windows VM.
+- Linux: install the runtime, MCP server and web Control Room. Local control needs a graphical X11
   session, Tk, `scrot` and clipboard support (`xclip`). A headless host can
   instead connect to a configured guest desktop. See the [VM guide](document/vm_setup.md).
 
@@ -48,6 +50,10 @@ example, Claude Code can call EchoPath while EchoPath plans with a Codex login.
 Use only the selected agents; setup does not connect every detected application.
 
 ## Install from a checkout or extracted folder
+
+On Windows, use `python` or `py -3` in place of `python3`, and
+`.venv\Scripts\python.exe` in place of `.venv/bin/python` in the commands below.
+For example: `python packaging/setup.py install --backend codex --agent codex --app`.
 
 Choose a permanent location before installing: the app and MCP registration
 point to this folder. Do not move/delete it after setup without reconnecting.

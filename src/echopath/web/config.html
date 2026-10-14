@@ -12,7 +12,7 @@
 <p id="vm-status" class="config-result" role="status" aria-live="polite">Loading connection settings…</p>
 <details id="vm-setup-details"><summary>Set up or edit a VM connection</summary>
 <form id="vm-form" class="stack" autocomplete="off">
-<div class="field"><label for="vm-mode">Set up a desktop</label><select id="vm-mode"><option value="ssh">Connect an existing VM with SSH</option><option value="lima">Create a Linux VM on this Mac</option><option value="direct">Connect an existing desktop bridge</option></select></div>
+<div class="field"><label for="vm-mode">Set up a desktop</label><select id="vm-mode"><option value="ssh">Connect an existing VM with SSH</option><option value="lima">Create a Linux VM on this Mac</option><option value="virtualbox">Create a Windows VM with VirtualBox</option><option value="direct">Connect an existing desktop bridge</option></select></div>
 <div class="field"><label for="vm-name">Connection name</label><input id="vm-name" maxlength="80" value="My VM" placeholder="Work VM"></div>
 <div id="vm-ssh-fields" class="stack">
 <div class="field"><label for="vm-host">SSH host or saved alias</label><input id="vm-host" spellcheck="false" placeholder="my-vm or 192.168.1.20" maxlength="253"></div>
@@ -26,6 +26,13 @@
 <div class="config-grid"><div class="field"><label for="vm-cpus">CPU cores</label><input id="vm-cpus" type="number" value="4" min="2" max="16"></div><div class="field"><label for="vm-memory">Memory (GiB)</label><input id="vm-memory" type="number" value="4" min="2" max="32"></div><div class="field"><label for="vm-disk">Disk capacity (GiB)</label><input id="vm-disk" type="number" value="30" min="20" max="200"></div></div>
 <p class="hint">The desktop is persistent. Turning this integration off disconnects EchoPath and keeps the VM and its files.</p>
 </div>
+<div id="vm-virtualbox-fields" class="stack" hidden>
+<p class="hint">Requires VirtualBox on Windows and a Windows x64 installation ISO. Setup creates a separate desktop in a visible VM window and installs EchoPath's desktop bridge. Use a licensed Windows image or Microsoft's time-limited evaluation.</p>
+<div class="field"><label for="vm-windows-iso">Windows installation ISO</label><input id="vm-windows-iso" spellcheck="false" placeholder="C:\Users\you\Downloads\Windows11.iso"></div>
+<div class="field"><label for="vm-windows-instance">VM name</label><input id="vm-windows-instance" value="echopath-windows" pattern="echopath-[a-zA-Z0-9][a-zA-Z0-9-]*" maxlength="49"></div>
+<div class="config-grid"><div class="field"><label for="vm-windows-cpus">CPU cores</label><input id="vm-windows-cpus" type="number" value="4" min="2" max="16"></div><div class="field"><label for="vm-windows-memory">Memory (GiB)</label><input id="vm-windows-memory" type="number" value="8" min="4" max="32"></div><div class="field"><label for="vm-windows-disk">Disk capacity (GiB)</label><input id="vm-windows-disk" type="number" value="80" min="64" max="200"></div></div>
+<p class="hint">Keep the guest signed in and unlocked. Pause the EchoPath task before using the VM's mouse or keyboard, then resume when ready. Disconnecting keeps the VM and its files.</p>
+</div>
 <div id="vm-direct-fields" class="field" hidden><label for="vm-endpoint">Desktop bridge URL</label><input id="vm-endpoint" type="url" placeholder="http://127.0.0.1:8790" spellcheck="false"><p class="hint">Use an existing local tunnel or an authenticated HTTPS bridge.</p></div>
 <details id="vm-advanced"><summary>Advanced connection settings</summary><div class="stack config-advanced">
 <div id="vm-tunnel-fields" class="config-grid"><div class="field"><label for="vm-local-port">Local tunnel port</label><input id="vm-local-port" type="number" min="1024" max="65535" value="8791"></div><div class="field"><label for="vm-bridge-port">Guest bridge port</label><input id="vm-bridge-port" type="number" min="1024" max="65535" value="8790"></div></div>
@@ -36,7 +43,7 @@
 <div class="config-actions"><button id="vm-save" type="submit" class="btn primary">Save connection</button><span id="vm-edit-note" class="hint"></span></div>
 </form>
 </details>
-<div class="config-actions"><button id="vm-test" type="button" class="btn" disabled>Test SSH</button><button id="vm-install" type="button" class="btn" disabled>Install bridge &amp; connect</button><button id="vm-create" type="button" class="btn primary" hidden>Create VM &amp; connect</button><button id="vm-connect" type="button" class="btn" disabled>Connect</button><button id="vm-open" type="button" class="btn" disabled>Open desktop</button><button id="vm-disconnect" type="button" class="btn link" disabled>Disconnect</button></div>
+<div class="config-actions"><button id="vm-test" type="button" class="btn" disabled>Test connection</button><button id="vm-install" type="button" class="btn" disabled>Install bridge &amp; connect</button><button id="vm-create" type="button" class="btn primary" hidden>Create VM &amp; connect</button><button id="vm-connect" type="button" class="btn" disabled>Connect</button><button id="vm-open" type="button" class="btn" disabled>Open desktop</button><button id="vm-window" type="button" class="btn" hidden>Open VM window</button><button id="vm-disconnect" type="button" class="btn link" disabled>Disconnect</button></div>
 <p id="vm-result" class="config-result" role="status" aria-live="polite"></p>
 </div>
 </section>
@@ -61,7 +68,7 @@
 <div class="panel-head"><h2 id="recording-title">Recording</h2></div>
 <div class="config-section">
 <div class="switch-row"><span class="grow"><label for="recording-enabled"><strong>Task recording</strong></label><span class="hint" id="recording-note">Save a video of new VM tasks. Changes apply to the next task.</span></span><input id="recording-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="recording-note"></div>
-<p class="hint config-privacy">Videos stay on this Mac and can be played or downloaded from Recent runs. Your Mac’s desktop is not recorded.</p>
+<p class="hint config-privacy">Available recordings stay on this computer and can be played or downloaded from Recent runs. Only the guest desktop is recorded.</p>
 <p id="recording-result" class="config-result" role="status" aria-live="polite"></p>
 </div>
 </section>

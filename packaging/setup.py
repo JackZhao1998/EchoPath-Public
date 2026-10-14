@@ -263,8 +263,8 @@ def install(args):
     from build_package import copy_package, package_files
     package_files(ROOT)  # Also catches incomplete downloaded folders before mutation.
     cli = executable(args.backend)
-    if args.app and sys.platform != 'darwin':
-        raise SetupError('--app requires macOS. The CLI and web Control Room work on other hosts.')
+    if args.app and sys.platform not in ('darwin', 'win32'):
+        raise SetupError('--app requires macOS or Windows. The CLI and web Control Room work on other hosts.')
     root = copy_package(ROOT, args.destination) if args.destination else ROOT
     python = python_path(root)
     if not python.exists():
@@ -279,30 +279,38 @@ def install(args):
     # pyproject editable-install protocol used by this package.  Upgrade only
     # the installation's private pip before installing dependencies.
     run([python, '-m', 'pip', 'install', '--upgrade', 'pip'], cwd=root)
-    run([python, '-m', 'pip', 'install', '-e', str(root) + ('[macos]' if sys.platform == 'darwin' else '')], cwd=root)
+    extra = '[macos]' if sys.platform == 'darwin' else '[windows]' if sys.platform == 'win32' else ''
+    run([python, '-m', 'pip', 'install', '-e', str(root) + extra], cwd=root)
     config = configure(root, args.backend, cli, args.replace_backend)
     verify(root, config)
     server_command = None
-    if args.app:
+    app_path = None
+    if args.app and sys.platform == 'darwin':
         run([python, root / 'packaging/macos/make_app.py', '--dest', args.app_destination], cwd=root)
         server_command = Path(args.app_destination).expanduser() / 'EchoPath.app/Contents/MacOS/EchoPath'
         if not server_command.is_file():
             raise SetupError('EchoPath.app was built without its launcher; inspect the app destination and retry.')
+        app_path = Path(args.app_destination).expanduser() / 'EchoPath.app'
+    elif args.app:
+        run([python, root / 'packaging/windows/make_app.py', '--config', config, '--dest', args.app_destination], cwd=root)
+        app_path = Path(args.app_destination).expanduser() / 'EchoPath.lnk'
     connected = connect(root, config, args.agent, args.replace_agent, server_command)
     receipt = {'package_root': str(root), 'config': str(config), 'python': str(python),
                'backend': args.backend, 'agents': connected, 'mcp_verified': True, 'model_verified': False,
-               'app': str(Path(args.app_destination).expanduser() / 'EchoPath.app') if args.app else None}
+               'app': str(app_path) if app_path else None}
     write_private(root / 'local_data/installation.json', receipt)
     print(json.dumps(receipt, indent=2))
-    if args.app:
+    if args.app and sys.platform == 'darwin':
         print('AUTHORIZATION STEP: EchoPath.app is opening to request local-control permissions from macOS.')
         print('Approve Accessibility and Screen Recording for EchoPath, then quit and reopen EchoPath.app.')
         print('Keep EchoPath.app open while local desktop tasks run: your coding agent sends those tasks through this authorized app.')
         open_app(Path(args.app_destination).expanduser() / 'EchoPath.app')
+    elif app_path:
+        os.startfile(app_path)
     if connected:
         agents = ' and '.join('Codex' if agent == 'codex' else 'Claude Code' for agent in connected)
         print(f'REQUIRED NEXT STEP: fully quit and restart {agents} so it reloads the new EchoPath MCP server.')
-        print('Do not run an EchoPath desktop task until that restart and the macOS authorization step are complete.')
+        print('Do not run an EchoPath desktop task until that restart' + (' and the macOS authorization step are complete.' if args.app and sys.platform == 'darwin' else ' is complete.'))
     else:
         print('Runtime installed and MCP verified. Run doctor --model to check the login/backend, then reload your coding agent.')
     return root
@@ -317,8 +325,8 @@ def main():
     installer.add_argument('--destination', type=Path, help='Copy the public package into an empty permanent folder before installing.')
     installer.add_argument('--replace-backend', action='store_true', help='Back up and replace a different existing backend; keep unrelated settings.')
     installer.add_argument('--replace-agent', action='store_true', help='Back up and replace conflicting echopath registrations/skills only.')
-    installer.add_argument('--app', action='store_true', help='Build the macOS menu-bar app and register it as the desktop-control MCP launcher.')
-    installer.add_argument('--app-destination', default=str(Path.home() / 'Applications'))
+    installer.add_argument('--app', action='store_true', help='Build the macOS menu-bar app or create a Windows tray-app shortcut.')
+    installer.add_argument('--app-destination', default=str(Path(os.environ['APPDATA']) / 'Microsoft/Windows/Start Menu/Programs' if sys.platform == 'win32' else Path.home() / 'Applications'))
     connector = commands.add_parser('connect', help='Register an already installed runtime and its skills.')
     connector.add_argument('--agent', choices=('codex', 'claude', 'both'), required=True)
     connector.add_argument('--config', type=Path, default=ROOT / 'echopath.local.json')

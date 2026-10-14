@@ -47,6 +47,9 @@ def status_title(runs, seen, now):
 
 
 def run_tray(runner, url):
+    if sys.platform == 'win32':
+        from .windows_tray import run_tray as windows_tray
+        return windows_tray(runner, url)
     if sys.platform != 'darwin':
         raise RuntimeError('The menu-bar app currently supports macOS. Use the web Control Room on other platforms.')
     try:

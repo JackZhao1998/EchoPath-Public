@@ -157,6 +157,36 @@ def desktop_permissions() -> Optional[Dict[str, bool]]:
         return None
 
 
+def desktop_session_status():
+    """Windows capture/input need the logged-in, unlocked interactive desktop."""
+    if sys.platform != 'win32':
+        return None
+    try:
+        import ctypes
+        from ctypes import wintypes
+        user = ctypes.WinDLL('user32', use_last_error=True)
+        kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+        kernel.ProcessIdToSessionId.argtypes = [wintypes.DWORD, ctypes.POINTER(wintypes.DWORD)]
+        session = wintypes.DWORD()
+        if not kernel.ProcessIdToSessionId(os.getpid(), ctypes.byref(session)) or session.value == 0:
+            return {'ready': False, 'reason': 'Sign in to Windows; the bridge needs an interactive user session.'}
+        user.OpenInputDesktop.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        user.OpenInputDesktop.restype = wintypes.HANDLE
+        user.CloseDesktop.argtypes = [wintypes.HANDLE]
+        user.GetUserObjectInformationW.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD, ctypes.POINTER(wintypes.DWORD)]
+        desktop = user.OpenInputDesktop(0, False, 0x101)  # READOBJECTS | SWITCHDESKTOP
+        if not desktop:
+            return {'ready': False, 'reason': 'Unlock Windows or close the secure desktop prompt in the VM window.'}
+        try:
+            name, needed = ctypes.create_unicode_buffer(256), wintypes.DWORD()
+            ready = bool(user.GetUserObjectInformationW(desktop, 2, name, ctypes.sizeof(name), ctypes.byref(needed))) and name.value.casefold() == 'default'
+            return {'ready': ready, 'session_id': session.value}
+        finally:
+            user.CloseDesktop(desktop)
+    except Exception:
+        return {'ready': False, 'reason': 'The Windows interactive desktop could not be verified.'}
+
+
 class AmazonVMDesktopAgentRequestHandler(BaseHTTPRequestHandler):
     server: AmazonVMDesktopAgentServer
     protocol_version = "HTTP/1.1"
@@ -174,6 +204,7 @@ class AmazonVMDesktopAgentRequestHandler(BaseHTTPRequestHandler):
                     "auth_required": bool(self.server.api_key),
                     "platform": sys.platform,
                     "permissions": desktop_permissions(),
+                    "desktop_session": desktop_session_status(),
                     "python": os.path.realpath(sys.executable),
                 }
             )
@@ -183,6 +214,11 @@ class AmazonVMDesktopAgentRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:  # noqa: N802
         if not self._authorize():
             return
+        if self.path in ('/observe', '/execute', '/record/start'):
+            session = desktop_session_status()
+            if session is not None and not session['ready']:
+                self._send_json({'error': session.get('reason', 'Sign in and unlock Windows in the VM window.')}, status=HTTPStatus.CONFLICT)
+                return
         if self.path == "/observe":
             self._handle_observe()
             return

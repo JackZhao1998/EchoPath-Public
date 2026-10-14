@@ -5,7 +5,7 @@
     "bridges/codex_sdk/package.json", "bridges/_template/auth.example.json"
   ],
   "patterns": [
-    "src/echopath/**/*.py", "src/echopath/web/*.html", "src/echopath/web/*.css", "src/echopath/web/*.js",
+    "src/echopath/**/*.py", "src/echopath/*.ps1", "src/echopath/web/*.html", "src/echopath/web/*.css", "src/echopath/web/*.js",
     "bridges/**/*.py", "bridges/**/*.md", "bridges/**/*.mjs",
     "skills/**/*.md", "document/*.md",
     "packaging/**/*.py", "packaging/**/*.sh", "packaging/**/*.c",

@@ -81,8 +81,9 @@ Fix these before running the installer; each is a common first failure.
    the user wants CLI/web-only operation: local desktop tasks run through that
    app. It builds into `~/Applications` and requires Xcode Command Line Tools
    and a compatible Python (3.12 recommended; if the launcher cannot find
-   `libpython`, see `INSTALL.md`). On Windows use `py -3.12`; command arguments
-   are otherwise the same.
+   `libpython`, see `INSTALL.md`). On Windows use `py -3.12` and include `--app`
+   for a Start menu shortcut, system tray controls and the browser Control Room.
+   See `document/windows_setup.md`; command arguments are otherwise the same.
 2. Reruns are safe and are also how to add `--app` later, repair, or update
    after pulling new code: they reuse the venv and preserve VM, recording, keys,
    history and other settings. Switching this same installation between its
@@ -120,11 +121,12 @@ open "$HOME/Applications/EchoPath.app"
 ```
 
 If `open` fails right after the app was quit (LaunchServices error -600), wait
-a few seconds and retry with `open -n`. If no native app was built (including
-Linux and Windows), start the web Control Room from the installed folder using
+a few seconds and retry with `open -n`. On Windows with `--app`, open the
+installed EchoPath Start menu shortcut. If no native app was built, start
+the web Control Room from the installed folder using
 the installed interpreter, as described in `INSTALL.md`, and keep it running.
 
-Guide the user through the OS-owned Accessibility and Screen Recording prompts
+For macOS, guide the user through the OS-owned Accessibility and Screen Recording prompts
 when local desktop control is wanted. Do not change privacy databases or claim a
 permission is granted without evidence; after approval, EchoPath must be quit
 and reopened before its check can pass. Then verify, rather than assume:
@@ -133,7 +135,11 @@ and reopened before its check can pass. Then verify, rather than assume:
 curl -s http://127.0.0.1:8765/api/local-desktop-authorization
 ```
 
-`"ready": true` means the app holds both grants. Keep the app running while
+On Windows, readiness requires an interactive unlocked desktop; there are no
+macOS permission grants. The tray offers Pause, Resume and Stop for active
+tasks, plus Open VM window for a managed VirtualBox guest.
+
+On macOS, `"ready": true` means the app holds both grants. Keep the app running while
 local tasks run: the MCP server submits them to that authorized app over its
 loopback Control Room instead of controlling the desktop from the coding
 agent's stdio child process. If macOS instead asks to grant Accessibility to

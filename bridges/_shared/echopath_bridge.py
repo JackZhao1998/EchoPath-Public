@@ -211,6 +211,7 @@ def run_command(
             timeout=timeout,
             check=False,
             env=environment,
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
         )
     except FileNotFoundError:
         fail(f"Bridge executable was not found: {command[0]}")

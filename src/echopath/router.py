@@ -275,6 +275,7 @@ class ExternalCommandRouter:
                 timeout=self._resolve_timeout(model_request),
                 check=False,
                 env=self._build_environment(model_request),
+                creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
             )
         except subprocess.TimeoutExpired as exc:
             message = f"External model bridge timed out after {self._resolve_timeout(model_request)} seconds."

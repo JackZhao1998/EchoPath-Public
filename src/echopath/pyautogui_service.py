@@ -309,7 +309,7 @@ class PyAutoGUIController:
                     "Clipboard paste requires pyperclip outside macOS."
                 ) from error
             pyperclip.copy(text_value)
-            keys, paste_target = _linux_clipboard_paste_hotkey()
+            keys, paste_target = (["ctrl", "v"], "windows") if sys.platform == "win32" else _linux_clipboard_paste_hotkey()
         backend.hotkey(*keys)
         result = {"text_length": len(text_value), "keys": keys}
         if sys.platform != "darwin":
@@ -477,6 +477,17 @@ def _route_macos_events_to_session_tap() -> bool:
 
 
 def _import_pyautogui():
+    if sys.platform == 'win32':
+        # Set awareness before PyAutoGUI's import-time legacy DPI call, so
+        # screenshots and pointer coordinates use the same physical pixels.
+        import ctypes
+        try:
+            ctypes.windll.user32.SetProcessDpiAwarenessContext(ctypes.c_void_p(-4))
+        except (AttributeError, OSError):
+            try:
+                ctypes.windll.shcore.SetProcessDpiAwareness(2)
+            except (AttributeError, OSError):
+                pass
     try:
         import pyautogui
     except ImportError as error:

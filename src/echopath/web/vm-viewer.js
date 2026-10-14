@@ -180,7 +180,7 @@ stage.addEventListener('keydown',event=>{
   event.preventDefault();
   if(event.key.length===1&&!event.ctrlKey&&!event.altKey&&!event.metaKey){enqueue({action:'text',text:event.key});return;}
   const key=special[event.key]||(/^F([1-9]|1[0-2])$/.test(event.key)?event.key.toLowerCase():event.key.toLowerCase());
-  const keys=[];if(event.ctrlKey)keys.push('ctrl');if(event.metaKey)keys.push(availability.platform==='darwin'?'command':'ctrl');
+  const keys=[];if(event.ctrlKey)keys.push('ctrl');if(event.metaKey)keys.push(availability.platform==='darwin'?'command':availability.platform==='win32'?'win':'ctrl');
   if(event.altKey)keys.push('alt');if(event.shiftKey)keys.push('shift');keys.push(key);
   enqueue({action:'key',keys:[...new Set(keys)]});
 });

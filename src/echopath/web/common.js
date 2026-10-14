@@ -12,7 +12,7 @@ async function api(path, data) {
 function node(tag, text, cls) {const n=document.createElement(tag); if(text!=null)n.textContent=text; if(cls)n.className=cls; return n;}
 function badge(status){const [label,tone]=statusOf(status); return node('span',label,'badge '+tone);}
 function targetKey(endpoint){return (endpoint||'').trim().replace(/\/+$/,'') || 'local';}
-function targetName(target, vm){if(target==='local')return 'This Mac'; return vm && targetKey(vm.endpoint)===target ? 'Virtual machine' : 'VM · '+target.replace(/^https?:\/\//,'');}
+function targetName(target, vm){if(target==='local')return 'This computer'; return vm && targetKey(vm.endpoint)===target ? 'Virtual machine' : 'VM · '+target.replace(/^https?:\/\//,'');}
 function elapsedSeconds(r){return Math.max(0,Math.floor((ACTIVE.has(r.status)?Date.now()/1000:r.updated)-r.started));}
 function duration(sec){const m=Math.floor(sec/60), s=sec%60; return m>=60?`${Math.floor(m/60)}h ${m%60}m`:`${m}m ${String(s).padStart(2,'0')}s`;}
 function clock(ts){return new Date(ts).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});}
@@ -39,7 +39,8 @@ function control(button, id, action, after){
 function showError(message){const el=$('error'); if(!el)return; el.hidden=!message; ($('error-text')||el).textContent=message||'';}
 function recordingSwitch(getSnapshot,redraw){
   const input=$('recording-enabled'),control={busy:false,render(snapshot){
-    input.disabled=control.busy||typeof snapshot.recording_enabled!=='boolean';
+    input.disabled=control.busy||snapshot.recording_supported===false||typeof snapshot.recording_enabled!=='boolean';
+    $('recording-note').textContent=snapshot.recording_supported===false?'Video recording currently requires a macOS host.':'Save a video of new VM tasks.';
     if(!control.busy)input.checked=!!snapshot.recording_enabled;
   }};
   input.onchange=async()=>{

@@ -1,6 +1,6 @@
 ---
 name: echopath-vm-setup
-description: Create, link, verify, or repair a VM desktop for EchoPath - a new macOS VM (Tart), a new Linux VM (Lima), an existing VM over SSH, or an existing desktop bridge. Use when the user wants EchoPath tasks to run in a VM instead of on their own screen. Not for installing EchoPath itself or for running desktop tasks.
+description: Create, link, verify, or repair a VM desktop for EchoPath - a Windows VM (VirtualBox), a macOS VM (Tart), a Linux VM (Lima), an existing VM over SSH, or an existing desktop bridge. Use when the user wants EchoPath tasks to run in a VM instead of on their own screen. Not for installing EchoPath itself or for running desktop tasks.
 ---
 
 # EchoPath VM setup
@@ -8,7 +8,7 @@ description: Create, link, verify, or repair a VM desktop for EchoPath - a new m
 A VM gives EchoPath a desktop it can control without touching the user's own
 screen. The host keeps EchoPath, the model login, history and learned
 procedures; the guest runs only a small desktop bridge reached through an SSH
-tunnel. Finish with a connection that is proven to both see and control the
+tunnel or a loopback VirtualBox NAT port. Finish with a connection that can see the
 guest desktop, not merely one that reports connected.
 
 EchoPath must already be installed (`echopath-setup`). One VM connection is
@@ -29,6 +29,8 @@ Each command prints one JSON object with `ok`, and exits nonzero with an `error`
 that says what to fix. Add `--config /absolute/config.json` before `vm`'s own
 arguments only for a custom configuration. `document/vm_setup.md` describes the
 same flow in the Config window and has the troubleshooting table.
+On Windows substitute `.venv\Scripts\python.exe` for `.venv/bin/python`.
+Read `document/windows_setup.md` for the Windows host and guest workflow.
 
 Start with `status`. If a connection is already saved, say what it is and ask
 before replacing it. Saving or installing needs the integration off first
@@ -43,6 +45,7 @@ their host supports:
 | --- | --- | --- |
 | New macOS VM (Tart) | Apple silicon Mac | about 25-30 GB download, 50 GB disk reserved, 8 GB memory while running |
 | New Linux VM (Lima) | macOS host with Lima | a few GB download, 30 GB disk, 4 GB memory |
+| New Windows VM (VirtualBox) | Windows host, VirtualBox 7.2+, Windows x64 ISO | ISO download plus 80 GB expanding disk, 8 GB memory while running |
 | Existing VM over SSH | Linux X11 or macOS guest with Python 3.10+ and key login | nothing new |
 | Existing desktop bridge | its URL and key | nothing new |
 
@@ -112,6 +115,33 @@ On a macOS host with Lima installed (`brew install lima`):
 and connects. It can take many minutes; its progress is printed as it goes and
 `status` shows the result if this session is interrupted.
 
+## New Windows VM with VirtualBox
+
+Use an official Windows x64 ISO. Microsoft's Enterprise evaluation is time
+limited to 90 days; it is not a permanent Windows license. Install VirtualBox
+from Oracle or `winget install --id Oracle.VirtualBox --exact` if needed.
+Check available disk and memory before starting. Then run from PowerShell:
+
+```powershell
+.venv\Scripts\python.exe packaging/setup.py vm save-virtualbox --iso 'C:\Images\Windows.iso' --instance echopath-windows
+.venv\Scripts\python.exe packaging/setup.py vm create --timeout 3600
+```
+
+This creates an owned VM with a visible console, UEFI Secure Boot and TPM,
+installs Windows and Guest Additions, installs Python and the guest bridge,
+and connects. It exposes guest port 8790 only through host loopback port 8791.
+The local account password is generated and saved privately; do not display
+it or pass it on command lines. Host folders and clipboards are not shared.
+Do not replace or adopt an unrelated existing VM to work around an error.
+
+The bridge runs as an interactive logon task, not a Session 0 service.
+Windows must be signed in and unlocked. Use `vm open-window` to show its
+console. After a reboot, sign in there, then use `vm connect`. If initial
+installation times out, finish any prompts in that same VM and use
+`vm install`; do not create another VM. `vm screenshot --out <ignored-path>`
+must show the actual desktop before reporting readiness. Use the Control
+Room's Pause control before manually taking over an active VM task.
+
 ## Existing VM over SSH
 
 The user must already be able to run `ssh <host>` without a password prompt,
@@ -148,7 +178,8 @@ in chat or pass it on a command line.
 ```
 
 This uploads only the desktop bridge, installs it as the guest user's login
-service, opens the tunnel and connects. Then prove the desktop in this order:
+service or interactive task, opens the connection and connects. Windows
+`create` already performs this step. Then verify the desktop in this order:
 
 1. **Permissions (macOS guests).** When the guest bridge lacks **Screen
    Recording** or **Accessibility**, `install` fails naming the missing grants
@@ -207,6 +238,7 @@ task is the user's choice; offer one small task through the `echopath` skill
   `--local-port`.
 - Guest logs: `~/.local/share/echopath-guest/service.log` (macOS) or
   `journalctl --user -u echopath-guest.service` (Linux).
+  Windows logs are at `%LOCALAPPDATA%\EchoPath\Guest\service.log` inside the guest.
 
 Never delete a VM, its disk, or the user's `known_hosts` entries for other
 hosts to recover. Removal is the user's decision; `document/vm_setup.md` lists

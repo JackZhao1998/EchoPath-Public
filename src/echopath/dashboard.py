@@ -39,7 +39,7 @@ class TaskRunner:
         self._procedures_updated = 0.0
         self._frame_lock = threading.Lock()
         self._frame = None
-        # Set only by the LaunchServices-started menu-bar app.  A process whose
+        # Set by the native tray/menu-bar app. On macOS, a process whose
         # executable merely happens to live inside EchoPath.app is not enough
         # for macOS TCC to treat it as that authorized app.
         self._local_app_host = False
@@ -47,11 +47,17 @@ class TaskRunner:
             threading.Thread(target=self._recover_vm, daemon=True).start()
 
     def enable_local_app_host(self):
-        """Mark this Control Room as the authorized macOS app entry point."""
+        """Mark this Control Room as the native app entry point."""
         self._local_app_host = True
 
     def local_desktop_authorization(self):
         """State used by MCP before it submits a local GUI task to this app."""
+        if sys.platform == 'win32':
+            from .amazon_vm_agent import desktop_session_status
+            session = desktop_session_status()
+            return {'app_host': self._local_app_host, 'ready': bool(self._local_app_host and session and session['ready']),
+                    'detail': 'Windows desktop ready.' if session and session['ready'] else 'Sign in and unlock Windows.',
+                    'config_path': str(self.config_path)}
         if not self._local_app_host:
             return {
                 'app_host': False,
@@ -204,7 +210,8 @@ class TaskRunner:
             if manager:
                 vm['reset'] = manager.status()
             return {'runs': runs, 'workers': pending, 'launch_errors': self.launch_errors[-5:], 'vm': vm,
-                    'procedures': self.procedures(), 'recording_enabled': self.settings.recording_enabled()}
+                    'procedures': self.procedures(), 'recording_enabled': self.settings.recording_enabled(),
+                    'recording_supported': sys.platform == 'darwin'}
 
     def recording(self, run_id):
         """The run's screen recording (<recording dir>/<run id>.mp4), if one was saved."""
@@ -331,7 +338,11 @@ class TaskRunner:
             log = self.registry.root / ('worker-' + uuid.uuid4().hex + '.log')
             try:
                 with log.open('w') as output:
-                    proc = subprocess.Popen(command, stdout=output, stderr=output, start_new_session=True)
+                    options = ({'creationflags': subprocess.CREATE_NO_WINDOW | subprocess.CREATE_NEW_PROCESS_GROUP}
+                               if os.name == 'nt' else {'start_new_session': True})
+                    if os.name == 'nt':
+                        options['env'] = {**os.environ, 'PYTHONUTF8': '1'}
+                    proc = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=output, stderr=output, **options)
             except OSError as error:
                 self.registry.set_error(run_id, f'Could not start worker: {error}')
                 raise
@@ -569,8 +580,9 @@ def build_handler(runner):
                     return self.respond({'ok': True, 'vm': state}, 202 if enabled else 200)
                 elif self.path == '/api/config/vm/action':
                     action = payload.get('action')
-                    state = runner.settings.vm.disconnect() if action == 'disconnect' else runner.settings.vm.start(action)
-                    return self.respond({'ok': True, 'vm': state}, 200 if action == 'disconnect' else 202)
+                    state = (runner.settings.vm.disconnect() if action == 'disconnect' else
+                             runner.settings.vm.open_window() if action == 'open-window' else runner.settings.vm.start(action))
+                    return self.respond({'ok': True, 'vm': state}, 200 if action in ('disconnect', 'open-window') else 202)
                 elif self.path == '/api/config/openrouter/save':
                     return self.respond(runner.settings.save_token(payload.get('token')))
                 elif self.path == '/api/config/openrouter/test':
@@ -630,11 +642,11 @@ def serve_ipv6_loopback(port, handler):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description='EchoPath Control Room and macOS menu-bar app.')
+    parser = argparse.ArgumentParser(description='EchoPath Control Room and desktop tray app.')
     parser.add_argument('--config', default=str(Path.cwd() / 'echopath.local.json'))
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--no-open', action='store_true')
-    parser.add_argument('--tray', action='store_true', help='Show status and controls in the macOS menu bar.')
+    parser.add_argument('--tray', action='store_true', help='Show status and controls in the macOS menu bar or Windows system tray.')
     args = parser.parse_args(argv)
     path = Path(args.config).expanduser().resolve()
     if not path.is_file():

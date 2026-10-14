@@ -26,6 +26,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .run_state import ACTIVE, RunRegistry, desktop_lock, input_lock
+from .platform_utils import process_alive
 
 
 class VMSetupError(ValueError):
@@ -37,18 +38,27 @@ def write_private(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix='.' + path.name, dir=path.parent)
     try:
-        with os.fdopen(fd, 'w') as stream:
+        with os.fdopen(fd, 'w', encoding='utf-8') as stream:
             stream.write(value if isinstance(value, str) else json.dumps(value, indent=2) + '\n')
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        # Windows readers and sync/indexing software briefly deny replacement.
+        # Keep the previous complete file until the atomic swap succeeds.
+        for attempt in range(20):
+            try:
+                os.replace(temporary, path)
+                break
+            except PermissionError:
+                if os.name != 'nt' or attempt == 19:
+                    raise
+                time.sleep(0.05 * (attempt + 1))
     finally:
         Path(temporary).unlink(missing_ok=True)
 
 
 def read_json(path, default=None):
     try:
-        value = json.loads(Path(path).read_text())
+        value = json.loads(Path(path).read_text(encoding='utf-8'))
     except FileNotFoundError:
         return {} if default is None else default
     except (UnicodeError, json.JSONDecodeError):
@@ -91,8 +101,8 @@ def normalize_vm(value):
     if not isinstance(profile, dict):
         raise VMSetupError('Invalid VM connection profile.')
     mode = profile.get('mode', 'ssh')
-    if mode not in ('ssh', 'direct', 'lima'):
-        raise VMSetupError('Choose SSH, an existing bridge, or a new Lima VM.')
+    if mode not in ('ssh', 'direct', 'lima', 'virtualbox'):
+        raise VMSetupError('Choose SSH, an existing bridge, Lima, or VirtualBox.')
     profile_id = _text(profile.get('id'), 'profile id', 'default')
     if not re.fullmatch(r'[a-zA-Z0-9_-]{1,64}', profile_id):
         raise VMSetupError('Invalid VM profile id.')
@@ -131,13 +141,21 @@ def normalize_vm(value):
                 raise VMSetupError('Invalid SSH username.')
             result['ssh'] = {'host': host, 'user': user, 'port': _integer(ssh.get('port'), 'SSH port', None),
                              'identity_file': _text(ssh.get('identity_file'), 'SSH key path')}
-        else:
+        elif mode == 'lima':
             instance = _text(profile.get('instance'), 'VM name', 'echopath-desktop')
             if not re.fullmatch(r'echopath-[a-z0-9][a-z0-9-]{0,39}', instance):
                 raise VMSetupError('Use a VM name starting with echopath- and lowercase letters, digits or hyphens.')
             result.update(instance=instance, cpus=_integer(profile.get('cpus'), 'CPU cores', 4, 2, 16),
                           memory_gib=_integer(profile.get('memory_gib'), 'Memory (GiB)', 4, 2, 32),
                           disk_gib=_integer(profile.get('disk_gib'), 'Disk (GiB)', 30, 20, 200), display=':99', xauthority='')
+        else:
+            instance = _text(profile.get('instance'), 'VM name', 'echopath-windows')
+            if not re.fullmatch(r'echopath-[a-zA-Z0-9][a-zA-Z0-9-]{0,39}', instance):
+                raise VMSetupError('Use a VM name starting with echopath- and letters, digits or hyphens.')
+            result.update(instance=instance, iso_path=_text(profile.get('iso_path'), 'Windows installation ISO'),
+                          cpus=_integer(profile.get('cpus'), 'CPU cores', 4, 2, 16),
+                          memory_gib=_integer(profile.get('memory_gib'), 'Memory (GiB)', 8, 4, 32),
+                          disk_gib=_integer(profile.get('disk_gib'), 'Disk (GiB)', 80, 64, 200))
     return {'enabled': value.get('enabled', False), 'profile': result}
 
 
@@ -155,13 +173,7 @@ def _fingerprint(profile):
 
 
 def _alive(pid):
-    try:
-        if int(pid or 0) <= 0:
-            return False
-        os.kill(int(pid), 0)
-        return True
-    except (OSError, ValueError):
-        return False
+    return process_alive(pid)
 
 
 def _executable(name):
@@ -175,7 +187,8 @@ def _executable(name):
 
 def _run(command, *, input=None, timeout=30, label='Command'):
     try:
-        result = subprocess.run(command, input=input, capture_output=True, text=True, timeout=timeout)
+        result = subprocess.run(command, input=input, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout,
+                                **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
     except subprocess.TimeoutExpired:
         raise VMSetupError(f'{label} timed out. Check the connection and retry.') from None
     except OSError:
@@ -266,7 +279,8 @@ class VMSetup:
         return {'configured': bool(profile), **config, 'connected': connected,
                 'endpoint': profile['endpoint'] if profile else '', 'platform': state.get('platform', '') if fresh else '',
                 'message': message, 'job': job, 'key_saved': bool(profile and key.get('api_key') and key.get('endpoint') == profile['endpoint']),
-                'can_create': sys.platform == 'darwin', 'managed_created': bool(profile and (self.root / ('managed-' + profile['id'] + '.json')).exists())}
+                'can_create': sys.platform in ('darwin', 'win32'), 'host_platform': sys.platform,
+                'managed_created': bool(profile and (self.root / ('managed-' + profile['id'] + '.json')).exists())}
 
     def save(self, profile, key=None):
         candidate = normalize_vm({'profile': profile})
@@ -297,12 +311,22 @@ class VMSetup:
             write_private(self.root / 'desired.json', {'connected': False})
         return self.status()
 
+    def open_window(self):
+        profile = self.profile()
+        if profile['mode'] != 'virtualbox':
+            raise VMSetupError('Open this VM in its provider application.')
+        from .vm_virtualbox import VirtualBoxVM
+        VirtualBoxVM(self, profile).open()
+        return self.status()
+
     def _spawn(self, action, token=''):
         self.root.mkdir(parents=True, exist_ok=True)
         args = [sys.executable, '-m', 'echopath.vm_setup', '--config', str(self.path), action]
         if token:
             args.extend(['--token', token])
         options = {'start_new_session': True} if os.name != 'nt' else {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS}
+        if os.name == 'nt':
+            options['env'] = {**os.environ, 'PYTHONUTF8': '1'}
         with (self.root / 'worker.log').open('ab') as log:
             os.chmod(self.root / 'worker.log', 0o600)
             process = subprocess.Popen(args, stdin=subprocess.DEVNULL, stdout=log, stderr=log, **options)
@@ -316,8 +340,9 @@ class VMSetup:
             raise VMSetupError('Unknown VM setup action.')
         with self._editing():
             profile = self.profile()
-            if action == 'create' and (profile['mode'] != 'lima' or sys.platform != 'darwin'):
-                raise VMSetupError('VM creation currently supports a Lima Linux desktop on macOS.')
+            if action == 'create' and not ((profile['mode'] == 'lima' and sys.platform == 'darwin') or
+                                            (profile['mode'] == 'virtualbox' and sys.platform == 'win32')):
+                raise VMSetupError('Use Lima on macOS or VirtualBox on Windows to create a desktop VM.')
             if action in ('install', 'create') and self.config()['enabled']:
                 raise VMSetupError('Turn VM integration off before preparing the guest.')
             token = uuid.uuid4().hex
@@ -366,6 +391,9 @@ class VMSetup:
         return command
 
     def inspect(self, profile):
+        if profile['mode'] == 'virtualbox':
+            from .vm_virtualbox import VirtualBoxVM
+            return VirtualBoxVM(self, profile).inspect()
         if profile['mode'] == 'direct':
             return self.probe(profile)
         script = 'import json,os,sys; print(json.dumps({"platform":sys.platform,"python":list(sys.version_info[:2]),"home":os.path.expanduser("~")}))'
@@ -393,6 +421,8 @@ class VMSetup:
             if health.get('service') != 'amazon-vm-desktop-agent' or health.get('status') != 'ok':
                 raise VMSetupError('The endpoint is not an EchoPath desktop bridge.')
             missing = missing_permissions(health)
+            if isinstance(health.get('desktop_session'), dict) and not health['desktop_session'].get('ready'):
+                raise VMSetupError('Sign in and unlock Windows in the VM window, then reconnect.')
             if missing:
                 raise VMSetupError(
                     'The guest bridge needs ' + ' and '.join(missing) + ' in the guest\'s System Settings → Privacy & Security'
@@ -422,6 +452,9 @@ class VMSetup:
 
     def restart_bridge(self, profile):
         """Restart the installed guest service, e.g. after a macOS permission was granted."""
+        if profile['mode'] == 'virtualbox':
+            from .vm_virtualbox import VirtualBoxVM
+            return VirtualBoxVM(self, profile).restart_bridge()
         if profile['mode'] == 'direct':
             raise VMSetupError('Restart an externally managed bridge on the guest itself.')
         guest = self.inspect(profile)
@@ -445,6 +478,9 @@ class VMSetup:
             self._spawn('supervise')
 
     def _connect(self, profile):
+        if profile['mode'] == 'virtualbox':
+            from .vm_virtualbox import VirtualBoxVM
+            VirtualBoxVM(self, profile).open()
         if profile['mode'] != 'direct':
             self.inspect(profile)
         with config_lock(self.path):
@@ -463,6 +499,9 @@ class VMSetup:
         raise VMSetupError(self.status()['message'] or 'The VM did not become ready.')
 
     def _install(self, profile):
+        if profile['mode'] == 'virtualbox':
+            from .vm_virtualbox import VirtualBoxVM
+            return VirtualBoxVM(self, profile).install()
         if profile['mode'] == 'direct':
             raise VMSetupError('Guest installation needs an SSH connection.')
         self.inspect(profile)
@@ -485,6 +524,9 @@ class VMSetup:
         write_private(self.credentials, {'endpoint': profile['endpoint'], 'api_key': key})
 
     def _create(self, profile):
+        if profile['mode'] == 'virtualbox':
+            from .vm_virtualbox import VirtualBoxVM
+            return VirtualBoxVM(self, profile).create()
         if sys.platform != 'darwin' or profile['mode'] != 'lima':
             raise VMSetupError('Creating a VM requires macOS and Lima.')
         lima = _executable('limactl')
@@ -524,9 +566,11 @@ class VMSetup:
         try:
             profile = self.profile()
             if action == 'test':
-                self._progress('Checking SSH access…' if profile['mode'] != 'direct' else 'Checking the desktop bridge…')
+                self._progress('Checking VirtualBox guest access…' if profile['mode'] == 'virtualbox' else
+                               'Checking SSH access…' if profile['mode'] != 'direct' else 'Checking the desktop bridge…')
                 self.inspect(profile)
-                message = 'SSH and Python are ready. Install the guest bridge, or connect if it is already installed.' if profile['mode'] != 'direct' else 'Guest desktop verified.'
+                message = ('VM and Guest Additions are ready. Install the bridge or connect.' if profile['mode'] == 'virtualbox' else
+                           'SSH and Python are ready. Install the guest bridge, or connect if it is already installed.' if profile['mode'] != 'direct' else 'Guest desktop verified.')
             else:
                 if action == 'create':
                     self._create(profile)
@@ -537,6 +581,9 @@ class VMSetup:
             ok = True
         except Exception as error:
             ok = False
+            if not isinstance(error, VMSetupError):
+                import logging
+                logging.exception('VM setup operation failed')
             message = str(error) if isinstance(error, VMSetupError) else 'VM setup failed. Check the saved connection and guest prerequisites, then retry.'
         write_private(self.root / 'job.json', {**read_json(self.root / 'job.json'), 'running': False, 'ok': ok, 'message': message})
 
@@ -561,7 +608,7 @@ class VMSetup:
                 connected = False
                 message = 'Connecting to the VM…'
                 try:
-                    if profile['mode'] != 'direct' and (process is None or process.poll() is not None):
+                    if profile['mode'] not in ('direct', 'virtualbox') and (process is None or process.poll() is not None):
                         write_private(self.root / 'state.json', {'fingerprint': fingerprint, 'pid': os.getpid(),
                                       'updated': time.time(), 'connected': False, 'platform': platform, 'message': message})
                         # Never adopt an unrelated listener already using the saved local port.
@@ -615,4 +662,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # Providers import VMSetupError from this module by its package name.
+    # Run the canonical module so its error class also matches in job().
+    from echopath.vm_setup import main as worker_main
+    worker_main()

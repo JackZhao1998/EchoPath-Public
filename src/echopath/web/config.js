@@ -13,7 +13,8 @@ function result(id,message,ok=null){const target=el(id);target.textContent=messa
 function render(){
   if(!settings)return;
   if(settings.vm){vmState=settings.vm;renderVM();}
-  el('recording-enabled').disabled=recordingBusy;
+  el('recording-enabled').disabled=recordingBusy||settings.recording_supported===false;
+  el('recording-note').textContent=settings.recording_supported===false?'Video recording currently requires a macOS host. Task history is still saved.':'Save a video of new VM tasks. Changes apply to the next task.';
   if(!recordingBusy)el('recording-enabled').checked=settings.recording_enabled;
   const token=settings.openrouter,environment=token.source==='environment';
   const badge=el('token-badge');badge.textContent=token.valid===true?'Verified':!token.present?'Not configured':token.valid===false?'Needs attention':'Not verified';
@@ -26,8 +27,8 @@ function render(){
   el('token-remove').disabled=tokenBusy||environment||!token.present;
   el('token-test').textContent=environment?'Test token':'Test saved token';
   el('jev-enabled').checked=settings.jev_enabled;
-  el('jev-enabled').disabled=tokenBusy||(!settings.jev_enabled&&token.valid!==true);
-  el('jev-note').textContent=token.valid===true?'Ready. Choose whether to use JEV for new tasks.':'Disabled until a valid OpenRouter token is available.';
+  el('jev-enabled').disabled=settings.jev_supported===false||tokenBusy||(!settings.jev_enabled&&token.valid!==true);
+  el('jev-note').textContent=settings.jev_supported===false?'JEV currently requires macOS text recognition.':token.valid===true?'Ready. Choose whether to use JEV for new tasks.':'Disabled until a valid OpenRouter token is available.';
 }
 async function tokenAction(path,data,message){
   tokenBusy=true;render();result('token-result',message);
@@ -76,6 +77,7 @@ function vmMode(){
   const mode=el('vm-mode').value;
   el('vm-ssh-fields').hidden=mode!=='ssh';
   el('vm-lima-fields').hidden=mode!=='lima';
+  el('vm-virtualbox-fields').hidden=mode!=='virtualbox';
   el('vm-direct-fields').hidden=mode!=='direct';
   el('vm-tunnel-fields').hidden=mode==='direct';
   el('vm-display-fields').hidden=mode!=='ssh';
@@ -87,7 +89,10 @@ function fillVM(profile){
     'vm-instance':p.instance||'echopath-desktop','vm-cpus':p.cpus||4,'vm-memory':p.memory_gib||4,
     'vm-disk':p.disk_gib||30,'vm-endpoint':p.mode==='direct'?p.endpoint||'':'',
     'vm-local-port':p.local_port||8791,'vm-bridge-port':p.bridge_port||8790,
-    'vm-display':p.mode==='lima'?':0':p.display||':0','vm-xauthority':p.xauthority||''};
+    'vm-display':p.mode==='lima'?':0':p.display||':0','vm-xauthority':p.xauthority||'',
+    'vm-windows-iso':p.iso_path||'','vm-windows-instance':p.mode==='virtualbox'?p.instance:'echopath-windows',
+    'vm-windows-cpus':p.mode==='virtualbox'?p.cpus:4,'vm-windows-memory':p.mode==='virtualbox'?p.memory_gib:8,
+    'vm-windows-disk':p.mode==='virtualbox'?p.disk_gib:80};
   for(const [id,value] of Object.entries(values))el(id).value=value;
   el('vm-reconnect').checked=p.auto_reconnect!==false;
   vmDirty=false;vmMode();
@@ -102,19 +107,22 @@ function renderVM(){
   el('vm-enabled').checked=vmState.enabled;
   el('vm-enabled').disabled=busy||vmDirty||!profile;
   for(const input of el('vm-form').querySelectorAll('input,select,button'))input.disabled=locked;
-  el('vm-mode').querySelector('option[value="lima"]').disabled=!vmState.can_create;
+  el('vm-mode').querySelector('option[value="lima"]').disabled=vmState.host_platform!=='darwin';
+  el('vm-mode').querySelector('option[value="virtualbox"]').disabled=vmState.host_platform!=='win32';
   el('vm-edit-note').textContent=vmState.enabled?'Turn off VM integration to edit.':vmDirty?'Save changes before connecting.':'';
   el('vm-key-note').textContent=vmState.key_saved?'A key is saved for this connection. Leave blank to keep it.':'Installing the guest bridge generates a key. For an existing bridge, enter its key here.';
   const unavailable=busy||vmDirty||!profile;
   el('vm-test').disabled=unavailable;
-  el('vm-test').textContent=profile?.mode==='direct'?'Test desktop':'Test SSH';
+  el('vm-test').textContent=profile?.mode==='direct'?'Test desktop':profile?.mode==='virtualbox'?'Test VM':'Test SSH';
   el('vm-install').hidden=profile?.mode==='direct'||profile?.mode==='lima';
   el('vm-install').disabled=unavailable||vmState.enabled;
-  el('vm-create').hidden=profile?.mode!=='lima';
+  el('vm-create').hidden=!['lima','virtualbox'].includes(profile?.mode);
   el('vm-create').textContent=vmState.managed_created?'Prepare VM & connect':'Create VM & connect';
   el('vm-create').disabled=unavailable||vmState.enabled||!vmState.can_create;
   el('vm-connect').disabled=unavailable||vmState.connected;
   el('vm-open').disabled=!vmState.connected;
+  el('vm-window').hidden=profile?.mode!=='virtualbox';
+  el('vm-window').disabled=!vmState.managed_created;
   el('vm-disconnect').disabled=busy||!vmState.enabled;
   const signature=JSON.stringify(vmState.job||{});
   if(signature!==vmJobSignature){vmJobSignature=signature;if(vmState.job?.message)result('vm-result',vmState.job.message,vmState.job.running?null:vmState.job.ok);}
@@ -124,7 +132,11 @@ function vmProfile(){
     ssh:{host:el('vm-host').value,user:el('vm-user').value,port:el('vm-port').value,identity_file:el('vm-identity').value},
     endpoint:el('vm-endpoint').value,local_port:el('vm-local-port').value,bridge_port:el('vm-bridge-port').value,
     display:el('vm-display').value,xauthority:el('vm-xauthority').value,auto_reconnect:el('vm-reconnect').checked,
-    instance:el('vm-instance').value,cpus:el('vm-cpus').value,memory_gib:el('vm-memory').value,disk_gib:el('vm-disk').value};
+    iso_path:el('vm-windows-iso').value,
+    instance:el('vm-mode').value==='virtualbox'?el('vm-windows-instance').value:el('vm-instance').value,
+    cpus:el(el('vm-mode').value==='virtualbox'?'vm-windows-cpus':'vm-cpus').value,
+    memory_gib:el(el('vm-mode').value==='virtualbox'?'vm-windows-memory':'vm-memory').value,
+    disk_gib:el(el('vm-mode').value==='virtualbox'?'vm-windows-disk':'vm-disk').value};
 }
 async function vmAction(path,data){
   vmBusy=true;renderVM();result('vm-result','Working…');
@@ -142,6 +154,7 @@ el('vm-form').onsubmit=event=>{event.preventDefault();vmAction('save',{profile:v
 el('vm-enabled').onchange=event=>vmAction('enabled',{enabled:event.target.checked});
 for(const action of ['test','install','create','connect','disconnect'])el('vm-'+action).onclick=()=>vmAction('action',{action});
 el('vm-open').onclick=()=>window.open('/vm?endpoint='+encodeURIComponent(vmState.endpoint),'echopath-vm-viewer','popup=yes,width=1200,height=800,resizable=yes,scrollbars=yes');
+el('vm-window').onclick=()=>vmAction('action',{action:'open-window'});
 setInterval(async()=>{
   if(vmBusy)return;
   try{const state=await request('/api/config/vm');if(!vmBusy){vmState=state;if(settings)settings.vm=state;renderVM();}}

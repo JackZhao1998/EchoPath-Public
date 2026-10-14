@@ -153,7 +153,7 @@ function render(){renderDesktops();renderActivity();renderRuns();renderComposer(
 function updateTarget(){
   const vm=target()==='vm';$('vm').hidden=!vm;
   if(vm)$('desktop').checked=true;$('desktop').disabled=vm;
-  $('target-note').textContent=vm?'Required for VM tasks. Your Mac stays free.':'Uses this Mac’s mouse and keyboard.';
+  $('target-note').textContent=vm?'Required for VM tasks. Your host desktop stays free.':'Uses this computer’s mouse and keyboard.';
   renderComposer();
 }
 

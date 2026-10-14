@@ -1,7 +1,8 @@
-"""Entry point for EchoPath.app: the Control Room server plus the menu-bar popover."""
+"""Desktop app entry point: the Control Room plus native tray/menu-bar controls."""
 from __future__ import annotations
 
 import os
+import argparse
 import sys
 import webbrowser
 from pathlib import Path
@@ -11,6 +12,10 @@ PORT = 8765
 
 
 def alert(title, message):
+    if sys.platform == 'win32':
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(None, str(message), str(title), 0x10)
+        return
     try:
         from AppKit import NSAlert, NSApplication
         NSApplication.sharedApplication()
@@ -23,8 +28,11 @@ def alert(title, message):
 
 
 def main(argv=None):
+    parser = argparse.ArgumentParser(description='EchoPath desktop app.')
+    parser.add_argument('--config', default='')
+    args = parser.parse_args(argv)
     # The launcher starts in the checkout, so this is the same echopath.local.json the CLI uses.
-    config = Path(os.environ.get('ECHOPATH_CONFIG') or Path.cwd() / 'echopath.local.json').expanduser()
+    config = Path(args.config or os.environ.get('ECHOPATH_CONFIG') or Path.cwd() / 'echopath.local.json').expanduser()
     url = f'http://localhost:{PORT}'
     try:
         with urlopen(url + '/api/status', timeout=1):

@@ -112,6 +112,8 @@ class Settings:
     def set_recording(self, enabled):
         if not isinstance(enabled, bool):
             raise ValueError('Task recording must be enabled or disabled.')
+        if enabled and sys.platform != 'darwin':
+            raise ValueError('Task video recording currently requires a macOS host.')
         with self.lock:
             self._set_desktop_option('vm_record_runs', enabled)
             return {'ok': True, 'recording_enabled': enabled,
@@ -128,6 +130,8 @@ class Settings:
                                'message': result['message'] if result else ('Token saved. Validate it to enable JEV.' if key else 'No OpenRouter token configured.')},
                 'jev_enabled': bool(enabled and key and (result is None or result['valid'])),
                 'recording_enabled': self.recording_enabled(),
+                'recording_supported': sys.platform == 'darwin',
+                'jev_supported': sys.platform == 'darwin',
                 'vm': self.vm.status(),
             }
 
@@ -172,6 +176,8 @@ class Settings:
     def set_jev(self, enabled):
         if not isinstance(enabled, bool):
             raise ValueError('JEV must be enabled or disabled.')
+        if enabled and sys.platform != 'darwin':
+            raise ValueError('JEV currently requires macOS text recognition.')
         with self.lock:
             if enabled:
                 key, _, _ = self._key()
@@ -212,7 +218,8 @@ class Settings:
         try:
             process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                        text=True, encoding='utf-8', errors='replace', env=environment,
-                                       cwd=config.external_command.working_directory, start_new_session=os.name != 'nt')
+                                       cwd=config.external_command.working_directory, start_new_session=os.name != 'nt',
+                                       creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0)
             try:
                 stdout, stderr = process.communicate(json.dumps(request), timeout=50)
             except subprocess.TimeoutExpired:

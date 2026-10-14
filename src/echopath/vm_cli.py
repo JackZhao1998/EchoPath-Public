@@ -73,6 +73,7 @@ def status(vm):
     health = _health(vm) if state['enabled'] else None
     if isinstance(health, dict):
         state['guest'] = {'permissions': health.get('permissions'), 'python': health.get('python'),
+                          'desktop_session': health.get('desktop_session'),
                           'missing_permissions': missing_permissions(health)}
     return state
 
@@ -170,9 +171,15 @@ def build_parser():
     lima.add_argument('--cpus', type=int, default=4)
     lima.add_argument('--memory-gib', type=int, default=4)
     lima.add_argument('--disk-gib', type=int, default=30)
+    vbox = commands.add_parser('save-virtualbox', help='Save a Windows desktop VM to create with VirtualBox (Windows hosts).')
+    vbox.add_argument('--instance', default='echopath-windows')
+    vbox.add_argument('--iso', required=True, help='Path to an official Windows x64 installation ISO.')
+    vbox.add_argument('--cpus', type=int, default=4)
+    vbox.add_argument('--memory-gib', type=int, default=8)
+    vbox.add_argument('--disk-gib', type=int, default=80)
     direct = commands.add_parser('save-direct', help='Save an existing desktop bridge URL; its key comes from the configured environment variable.')
     direct.add_argument('--endpoint', required=True)
-    for saver in (ssh, lima, direct):
+    for saver in (ssh, lima, direct, vbox):
         saver.add_argument('--name', default='', help='Connection name shown in Config.')
         saver.add_argument('--local-port', type=int, default=8791)
         saver.add_argument('--bridge-port', type=int, default=8790)
@@ -182,12 +189,13 @@ def build_parser():
     tart.add_argument('--name', default='')
     for action, text in (('test', 'Check SSH and guest Python; installs nothing.'),
                          ('install', 'Install the guest bridge, then connect.'),
-                         ('create', 'Create the saved Lima VM, then connect.'),
+                         ('create', 'Create the saved managed VM, then connect.'),
                          ('connect', 'Enable the integration and connect.')):
-        commands.add_parser(action, help=text).add_argument('--timeout', type=int, default=1800 if action == 'create' else 900)
+        commands.add_parser(action, help=text).add_argument('--timeout', type=int, default=3600 if action == 'create' else 900)
     commands.add_parser('disconnect', help='Close the tunnel; keep the saved connection.')
     commands.add_parser('disable', help='Turn VM integration off (required before saving or installing).')
     commands.add_parser('restart-bridge', help='Restart the guest service, e.g. after granting macOS permissions.')
+    commands.add_parser('open-window', help='Open the visible window of the saved VirtualBox VM.')
     shot = commands.add_parser('screenshot', help='Save one guest screen capture for inspection.')
     shot.add_argument('--out', required=True)
     return parser
@@ -212,6 +220,10 @@ def main(argv=None):
         elif args.command == 'save-direct':
             result = save(vm, {'id': 'default', 'name': args.name, 'mode': 'direct', 'auto_reconnect': True,
                                'endpoint': args.endpoint})
+        elif args.command == 'save-virtualbox':
+            result = save(vm, {'id': 'default', 'name': args.name or args.instance, 'mode': 'virtualbox', 'auto_reconnect': True,
+                               'local_port': args.local_port, 'bridge_port': args.bridge_port, 'instance': args.instance,
+                               'iso_path': args.iso, 'cpus': args.cpus, 'memory_gib': args.memory_gib, 'disk_gib': args.disk_gib})
         elif args.command == 'tart-link':
             result = tart_link(vm, args.vm, args.identity_file, args.name)
         elif args.command in JOBS:
@@ -225,6 +237,12 @@ def main(argv=None):
         elif args.command == 'restart-bridge':
             vm.restart_bridge(vm.profile())
             time.sleep(4)
+            result = status(vm)
+        elif args.command == 'open-window':
+            if vm.profile()['mode'] != 'virtualbox':
+                raise VMSetupError('Open the guest console in your VM provider. This command opens managed VirtualBox guests.')
+            from .vm_virtualbox import VirtualBoxVM
+            VirtualBoxVM(vm, vm.profile()).open()
             result = status(vm)
         else:
             result = screenshot(vm, args.out)

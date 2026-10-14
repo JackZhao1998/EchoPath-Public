@@ -23,14 +23,14 @@
 <h2 id="start-title">Start a task</h2>
 <div class="field"><label for="task">What should EchoPath do?</label><textarea id="task" required maxlength="16000" placeholder="Open Chrome, search for a flight, and stop at the results."></textarea></div>
 <fieldset class="targets"><legend>Run on</legend>
-<label class="target"><input type="radio" name="target" value="local" checked><span class="grow">This Mac</span><span class="faint" id="busy-local"></span></label>
+<label class="target"><input type="radio" name="target" value="local" checked><span class="grow">This computer</span><span class="faint" id="busy-local"></span></label>
 <label class="target"><input type="radio" name="target" value="vm"><span class="grow" id="vm-label">Virtual machine</span><span class="faint" id="busy-vm"></span></label>
 </fieldset>
 <div id="vm" class="field" hidden><label for="endpoint">VM desktop bridge</label>
 <div class="row"><input id="endpoint" type="url" placeholder="http://127.0.0.1:8790"><button id="check" type="button" class="btn">Check</button></div>
 <p id="health" class="hint">Screenshots, keyboard and pointer input stay inside the guest VM.</p>
 <div><button id="vm-open" type="button" class="btn small">Open VM</button></div></div>
-<label class="check"><input id="desktop" type="checkbox"><span><strong>Allow desktop control</strong><span class="hint" id="target-note">Uses this Mac’s mouse and keyboard.</span></span></label>
+<label class="check"><input id="desktop" type="checkbox"><span><strong>Allow desktop control</strong><span class="hint" id="target-note">Uses this computer’s mouse and keyboard.</span></span></label>
 <div class="list"><div class="switch-row"><span class="grow"><label for="recording-enabled"><strong>Task recording</strong></label><span class="hint" id="recording-note">Save a video of new VM tasks.</span></span><input id="recording-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="recording-note"></div></div>
 <button id="start" type="submit" class="btn primary">Start task</button>
 </form></section>
@@ -53,6 +53,6 @@
 <div class="panel"><div class="panel-head"><h2>Steps</h2><span id="run-step-count" class="faint"></span></div><ol id="run-steps" class="steps-log"></ol></div>
 <div class="panel"><div class="panel-head"><h2>Full trace</h2><button id="run-trace-toggle" type="button" class="btn link" aria-expanded="false">Show</button></div><ol id="run-trace" class="events" hidden></ol></div>
 </dialog>
-<footer class="note">Workers keep running when this page closes. Paused runs need their worker alive. Use the menu-bar app to control them without switching windows.</footer>
+<footer class="note">Workers keep running when this page closes. Paused runs need their worker alive. Use EchoPath's native app controls to pause, resume or stop a task.</footer>
 </main>
 </body></html>

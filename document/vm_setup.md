@@ -10,6 +10,10 @@ guest runs a small desktop bridge and the applications used by your tasks. Your
 model login, model credentials, task history and learned procedures stay on the
 host. Screenshots still go to the configured model when a task needs vision.
 
+For a Windows host and a visible Windows guest, follow the
+[Windows setup guide](windows_setup.md). The VirtualBox connection uses the same
+Control Room, VM viewer, MCP task controls, and learning runtime described here.
+
 ## Set up from a terminal or with your coding agent
 
 Every step in this guide is also available without the Config window, which is
@@ -164,8 +168,8 @@ limactl stop echopath-desktop
 limactl start echopath-desktop
 ```
 
-Start a powered-off VM before reconnecting. See the usage guide's
-[reset instructions](usage.md#automatic-vm-reset) if you
+Start a powered-off VM before reconnecting. See the README's separate
+[reset instructions](../README.md#restore-a-clean-vm-after-every-task) if you
 want a reviewed baseline restored after tasks. Creation for Windows/Linux hosts
 and automatic Windows guest installation are not included in this version.
 
