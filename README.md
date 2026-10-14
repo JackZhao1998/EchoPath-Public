@@ -24,6 +24,11 @@ Desktop workflows your agent can learn and reuse.</p>
 </p>
 
 <p>
+  <strong>Paper:</strong> <a href="https://arxiv.org/abs/2609.16635">EchoPath: Execution-Level Replayable Memory for GUI Agents</a><br>
+  Accepted at <a href="https://clea-neurips.github.io/" title="NeurIPS 2026 Workshop on Continual Learning for Enterprise AI Agents"><strong>NeurIPS-CLEA 2026</strong></a> (poster)
+</p>
+
+<p>
   <a href="#installation"><strong>Get started →</strong></a> ·
   <a href="#watch-echopath">Watch the film</a> ·
   <a href="#software-demos">Software demos</a> ·
