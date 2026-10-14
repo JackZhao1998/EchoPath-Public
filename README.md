@@ -47,7 +47,7 @@ from the Control Room.
 A 36-second introduction to reusable workflows, desktop and VM options,
 specialist tools, and everyday tasks. Play the film directly below.
 
-https://github.com/user-attachments/assets/fd8e4267-a16f-42fc-8a46-0e2ad8ca02ac
+https://github.com/user-attachments/assets/38a42ba6-9bce-48f5-bbac-ca1a377b9bac
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/introduction/EchoPath-introduction-en.vtt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/introduction/EchoPath-commercial-bright-36s.mp4)
@@ -91,7 +91,7 @@ These are planned runs, not replay benchmarks.
 
 Explore a chest CT in 2D and 3D, then save the scene and data as a bundle.
 
-https://github.com/user-attachments/assets/b3b97a96-7d68-443e-a66b-e89795e39098
+https://github.com/user-attachments/assets/e509627c-a4bf-4539-a4e8-75e0f08c896e
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/slicer/echopath-slicer-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/slicer/echopath-slicer-demo.mp4)
@@ -103,7 +103,7 @@ https://github.com/user-attachments/assets/b3b97a96-7d68-443e-a66b-e89795e39098
 
 Analyze particles in a calibrated image; export measurements and numbered outlines.
 
-https://github.com/user-attachments/assets/ab280e6a-5d96-4de9-9fc4-4a137a7ec288
+https://github.com/user-attachments/assets/659a8210-78ce-4f7b-a05f-c9ba83eacba7
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/imagej/echopath-imagej-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/imagej/echopath-imagej-demo.mp4)
@@ -115,7 +115,7 @@ https://github.com/user-attachments/assets/ab280e6a-5d96-4de9-9fc4-4a137a7ec288
 
 Flag invoice variances and duplicates, chart vendor totals, and save an editable workbook.
 
-https://github.com/user-attachments/assets/8d53670e-66dd-4300-aca5-dcc807f40601
+https://github.com/user-attachments/assets/d11f2d9e-84c1-4107-82f9-abe8e0d6b603
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/calc/echopath-calc-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/calc/echopath-calc-demo.mp4)
@@ -127,7 +127,7 @@ https://github.com/user-attachments/assets/8d53670e-66dd-4300-aca5-dcc807f40601
 
 Model a flanged bushing with a through bore; save the native model and export STEP.
 
-https://github.com/user-attachments/assets/a3950a2b-c6b6-45b0-992d-bfd6eeb0fc85
+https://github.com/user-attachments/assets/dacec34d-66b9-4c62-b0ad-e2b7f65608ad
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/freecad/echopath-freecad-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/freecad/echopath-freecad-demo.mp4)
@@ -139,7 +139,7 @@ https://github.com/user-attachments/assets/a3950a2b-c6b6-45b0-992d-bfd6eeb0fc85
 
 Map clinic service areas, count covered households, and save the project and analysis layers.
 
-https://github.com/user-attachments/assets/db2f52be-6f14-4dcc-a000-7295e05ebe85
+https://github.com/user-attachments/assets/6ea890c3-0b52-449c-bc35-13d91d058119
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/qgis/echopath-qgis-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/qgis/echopath-qgis-demo.mp4)
@@ -151,7 +151,7 @@ https://github.com/user-attachments/assets/db2f52be-6f14-4dcc-a000-7295e05ebe85
 
 Filter low-frequency rumble, remove DC offset, normalize audio, and save a WAV file and editable project.
 
-https://github.com/user-attachments/assets/34efd07d-bba8-411a-98f9-16034809b60d
+https://github.com/user-attachments/assets/735affcc-1e3b-414f-9b7d-570ff8a5aa98
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/audacity/echopath-audacity-demo.srt) ·
 [Video file](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/demos/audacity/echopath-audacity-demo.mp4)
@@ -167,7 +167,7 @@ https://github.com/user-attachments/assets/34efd07d-bba8-411a-98f9-16034809b60d
 Set up the Mac app, connect your coding agent, and follow the optional
 Linux/macOS guest setup.
 
-https://github.com/user-attachments/assets/0376afc8-3d75-48cb-8f1c-21b23f829fea
+https://github.com/user-attachments/assets/bb69b056-6703-49f8-bddc-d4214874ce80
 
 [Captions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/installation/EchoPath-installation-macOS-en.vtt) ·
 [Setup commands](https://github.com/JackZhao1998/EchoPath-Public/blob/main/media/installation/Setup-commands.txt) ·
