@@ -3,10 +3,11 @@
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-wordmark-dark.svg">
-    <img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" align="middle" alt="EchoPath">
+    <img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" alt="EchoPath">
   </picture>
-  (Windows)
 </h1>
+
+<p><strong>Windows version</strong></p>
 
 <p><strong>Good work, on repeat.</strong></p>
 <p>Desktop workflows your agent can learn and reuse.</p>
