@@ -21,7 +21,12 @@ begin from a clean app state.
 4. Watch the GUI replay and verify the visible result.
 
 For default replay, click targets are visually re-aimed from packaged crops when the task has a
-pointer step. The Clock timer example also adapts the hour, minute, second, and wait duration from
-the current request. The Weather example adapts the requested location and uses the top Weather
+pointer step. The Weather example adapts the requested location and uses the top Weather
 search result without adding it to saved locations. Direct coordinate replay remains available for
 comparison by prefixing the exact prompt with `Direct replay: `.
+
+The release retains four active records: visual and direct variants for Stocks
+and Weather. The deprecated Clock timer records and their crops are excluded.
+These examples require macOS and have not been re-recorded or verified on a
+fresh desktop for this release. Windows users should record a workflow on their
+own Windows target rather than replaying macOS key bindings.

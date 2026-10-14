@@ -21,6 +21,13 @@ for the installed copy. Otherwise the package root is three levels above this
 file (`packaging/agents/echopath-setup/SKILL.md`). Read `INSTALL.md` there for
 commands, prerequisites, platform differences, and troubleshooting.
 
+This package is the `windows-version` release branch. Use `main` for the macOS app
+and `windows-version` for the Windows tray app and managed Windows guests.
+For a bare repository URL, select the branch matching the requested host;
+preserve an explicitly supplied ref and explain a platform mismatch before
+installation. Do not mix branch files or switch a populated installation
+with local changes.
+
 For a user-supplied Git URL, clone the requested repository/ref into the
 folder the user named, or `~/.echopath/src` when they named none. Preserve a
 supplied branch/tag/commit. Never overwrite a populated destination, reset a

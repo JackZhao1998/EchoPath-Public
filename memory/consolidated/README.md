@@ -14,27 +14,24 @@ Raw first-run trajectories stay in `../actions/`; only selected, consolidated me
 The public repo includes local GUI example memories in:
 
 - `records/consolidated-local-demo-stocks-amazon-1w-close.json`
-- `records/consolidated-local-demo-clock-timer-000015-close.json`
 - `records/consolidated-local-demo-weather-location-forecast-close.json`
 
+These four active Stocks/Weather records require macOS; the deprecated Clock
+records are excluded. They are recorded examples, not fresh release validation.
 They correspond to the prompts in `examples/local_gui_memory_pack/TASKS.md` and are meant for quick
 visible GUI replay smoke checks.
 
 To use one, send the exact task prompt to EchoPath. The replay matcher checks consolidated memories
 before local raw trajectories. The default memories use `memory_replay_visual_bindings` and crops
 from `crops/local-demo-stocks-amazon-1w-close/` and
-`crops/local-demo-clock-timer-000015-close/`, and
 `crops/local-demo-weather-location-forecast-close/` so the click targets are visually re-aimed on
 the current screen.
 
 Direct coordinate replay remains available as an explicit option through the paired
 `records/consolidated-local-demo-direct-stocks-amazon-1w-close.json` and
-`records/consolidated-local-demo-direct-clock-timer-000015-close.json`, and
 `records/consolidated-local-demo-direct-weather-location-forecast-close.json` memories. To use
 direct replay, send `Direct replay: ` followed by the exact task prompt.
 
-The Clock timer memory adapts requested hour, minute, and second values when the task uses the same
-Clock Timer workflow. The app close wait is derived from the requested duration plus 1.5 seconds.
 The Weather memory adapts the requested location and opens the top Weather search result without
 adding it to saved locations.
 

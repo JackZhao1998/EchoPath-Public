@@ -1,7 +1,9 @@
 # Local GUI Demo Tasks
 
 These tasks are designed to run on a normal local desktop with visible apps. They are practical demos
-for showing that EchoPath can replay useful GUI workflows on-device.
+for inspecting and trying recorded macOS replay workflows. They require the listed
+macOS apps; they are not Windows desktop examples. App versions and screen layout
+can affect replay. A fresh live run on the release target is still required.
 
 ## Task 1: Stocks Amazon 1-Week History
 
@@ -22,27 +24,7 @@ Search and open the Stocks app, search for Amazon, click into it, switch the cha
 Direct replay: Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks.
 ```
 
-## Task 2: Clock 15-Second Timer
-
-- ID: `local-demo-clock-timer-000015-close`
-- App: Clock on macOS
-- Artifact: none
-- Minimal prep: make sure Clock is installed. The replay opens it through Spotlight and quits it at the end.
-- Prompt:
-
-```text
-Open Clock, go to Timer, set a 00 hour 00 minute 15 seconds timer, start it, wait until it finishes, then close Clock.
-```
-
-- Success note: Clock starts a `00:00:15` timer, waits until it finishes, and then quits.
-- Dynamic input note: the packaged memory can adapt other timer values written as hours, minutes, and seconds, or as `HH:MM:SS` / `MM:SS`. The close wait is the requested timer duration plus 1.5 seconds.
-- Direct replay option:
-
-```text
-Direct replay: Open Clock, go to Timer, set a 00 hour 00 minute 15 seconds timer, start it, wait until it finishes, then close Clock.
-```
-
-## Task 3: Weather Location Forecast
+## Task 2: Weather Location Forecast
 
 - ID: `local-demo-weather-location-forecast-close`
 - App: Weather on macOS

@@ -7,6 +7,9 @@ viewer. Model logins and task history stay on the host.
 
 ## Install the host
 
+Use the `windows-version` branch of [https://github.com/JackZhao1998/EchoPath-Public](https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version).
+The `main` branch is the macOS release.
+
 Use Windows 11 x64 with hardware virtualization enabled, Python 3.10 or newer,
 and your signed-in Codex or Claude Code CLI. Run in the permanent EchoPath folder:
 

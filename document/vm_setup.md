@@ -168,10 +168,10 @@ limactl stop echopath-desktop
 limactl start echopath-desktop
 ```
 
-Start a powered-off VM before reconnecting. See the README's separate
-[reset instructions](../README.md#restore-a-clean-vm-after-every-task) if you
-want a reviewed baseline restored after tasks. Creation for Windows/Linux hosts
-and automatic Windows guest installation are not included in this version.
+Start a powered-off VM before reconnecting. See the shared usage guide's
+[reset instructions](https://github.com/JackZhao1998/EchoPath-Public/blob/main/document/usage.md#automatic-vm-reset) if you
+want a reviewed baseline restored after tasks. These Lima/Tart creation paths require a macOS host. For managed Windows guest
+creation and installation on a Windows host, use the [Windows guide](windows_setup.md).
 
 ## Use an existing desktop bridge
 
