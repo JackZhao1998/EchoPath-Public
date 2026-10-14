@@ -1,0 +1,2 @@
+# Preserve the supplied artwork bytes and the checksums in sources.json.
+*.svg -text -diff

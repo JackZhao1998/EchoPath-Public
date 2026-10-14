@@ -30,9 +30,9 @@ Desktop workflows your agent can learn and reuse.</p>
 </p>
 
 <p>
-  <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics"><picture><source media="(prefers-color-scheme: dark)" srcset="document/assets/partner-jhu-ams-dark.svg"><img src="document/assets/partner-jhu-ams-light.svg" width="268" height="64" alt="Johns Hopkins University · Applied Mathematics &amp; Statistics"></picture></a>
+  <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics"><picture><source media="(prefers-color-scheme: dark)" srcset="document/assets/partner-jhu-ams-dark.svg"><img src="document/assets/partner-jhu-ams-light.svg" width="268" height="112" alt="Johns Hopkins University · Applied Mathematics &amp; Statistics"></picture></a>
   &nbsp;
-  <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence"><picture><source media="(prefers-color-scheme: dark)" srcset="document/assets/partner-amazon-agi-dark.svg"><img src="document/assets/partner-amazon-agi-light.svg" width="268" height="64" alt="Amazon AGI · Artificial General Intelligence"></picture></a>
+  <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence"><img src="document/assets/partner-amazon-agi.png" width="268" height="112" alt="Amazon AGI · Artificial General Intelligence"></a>
 </p>
 
 <p>

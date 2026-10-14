@@ -1,0 +1,26 @@
+{
+  "purpose": "Identify the research affiliations credited in the EchoPath README.",
+  "rights": "Johns Hopkins University and Amazon logos remain the trademarks and artwork of their respective owners. Original source files are preserved without modification.",
+  "assets": {
+    "jhu-horizontal-blue.svg": {
+      "owner": "Johns Hopkins University",
+      "source_page": "https://brand.jhu.edu/visual-identity/primary-logo/",
+      "download_url": "https://brand.jhu.edu/download-resources/primary-logo/",
+      "archive_member": "Johns Hopkins University Logos/RGB (Digital)/SVG/JHU.logo_horizontal.blue.svg",
+      "sha256": "845d1513d9bde123006b666def1c14ed1350663e648242145bbd8566d1985c4f"
+    },
+    "jhu-horizontal-white.svg": {
+      "owner": "Johns Hopkins University",
+      "source_page": "https://brand.jhu.edu/visual-identity/primary-logo/",
+      "download_url": "https://brand.jhu.edu/download-resources/primary-logo/",
+      "archive_member": "Johns Hopkins University Logos/RGB (Digital)/SVG/JHU.logo_horizontal.white.svg",
+      "sha256": "4404dc0d5bf52a0a02dc30f0c053bea13c988c895d273da3769671b92eec6342"
+    },
+    "amazon-logo.png": {
+      "owner": "Amazon.com, Inc. or its affiliates",
+      "source_page": "https://press.aboutamazon.com/logos?p=4",
+      "download_url": "https://assets.aboutamazon.com/2e/d7/ac71f1f344c39f8949f48fc89e71/amazon-logo-squid-ink-smile-orange.png",
+      "sha256": "5d26b516f9cf43e65c114ea65369c6fb209e4528678ad7c1d7d67623cbd3efab"
+    }
+  }
+}
