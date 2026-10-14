@@ -1,0 +1,49 @@
+{
+  "vm": {"enabled": false, "profile": null},
+  "model_routing": {
+    "mode": "external_command",
+    "router_name": "default",
+    "external_model": "default"
+  },
+  "external_command": {
+    "command": [
+      "python",
+      "bridges/codex_cli/run_codex_cli.py"
+    ],
+    "working_directory": ".",
+    "timeout_seconds": 300,
+    "env": {}
+  },
+  "desktop": {
+    "provider": "local",
+    "reasoning_effort": "medium",
+    "max_iterations": 60,
+    "pause_seconds": 0.1,
+    "fail_safe": true,
+    "screenshot_directory": "local_data/desktop_observations",
+    "amazon_vm_endpoint": "",
+    "amazon_vm_api_key_env": "ECHOPATH_AMAZON_VM_API_KEY",
+    "amazon_vm_timeout_seconds": 30,
+    "replay_fallback_to_planning": true,
+    "replay_verify_goal": true,
+    "replay_decision_model": false,
+    "replay_decision_model_api_key_env": "OPENROUTER_API_KEY",
+    "replay_decision_model_min_confidence": 0.9,
+    "vm_record_runs": false,
+    "vm_recording_directory": "local_data/recordings",
+    "vm_recording_max_seconds": 3600,
+    "vm_recording_preset": "Preset1920x1080"
+  },
+  "skills": {
+    "available": [
+      "pyautogui-desktop",
+      "command-line",
+      "workspace-files"
+    ],
+    "enabled": [
+      "pyautogui-desktop",
+      "command-line",
+      "workspace-files"
+    ]
+  }
+}

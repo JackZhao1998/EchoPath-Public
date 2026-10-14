@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EchoPath Control Room</title><link rel="stylesheet" href="/dashboard.css"><script defer src="/common.js"></script><script defer src="/dashboard.js"></script></head>
+<body>
+<header class="topbar"><div class="wrap">
+<span class="mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="11" r="2.4" fill="currentColor" stroke="none"/><path d="M11.5 6.5a6.4 6.4 0 0 1 0 9"/><path d="M15 3.8a10.2 10.2 0 0 1 0 14.4"/></svg></span>
+<span class="brand">EchoPath</span><span class="sub">Control Room</span><span class="grow"></span>
+<span id="connection" class="conn" role="status">Connecting…</span>
+<button id="config-open" type="button" class="btn small">Config</button>
+</div></header>
+<main class="wrap">
+<div class="intro"><h1>Your desktops</h1><p>One run per desktop. Pause to take the screen back; resume when you’re ready.</p></div>
+<div id="error" class="error" role="alert" hidden><span id="error-text" class="grow"></span><button id="error-close" type="button" class="btn link" aria-label="Dismiss this message">Dismiss</button></div>
+<div class="layout">
+<div class="col-main">
+<section aria-label="Desktops"><div id="desktops" class="desktops" aria-live="polite"></div></section>
+<section class="panel" aria-labelledby="activity-title">
+<div class="panel-head"><h2 id="activity-title">Activity</h2><button id="raw-toggle" type="button" class="btn link" aria-pressed="false">Show raw events</button></div>
+<ol id="activity" class="events"></ol>
+</section>
+</div>
+<div class="col-side">
+<section class="panel pad" aria-labelledby="start-title"><form id="launch" class="stack">
+<h2 id="start-title">Start a task</h2>
+<div class="field"><label for="task">What should EchoPath do?</label><textarea id="task" required maxlength="16000" placeholder="Open Chrome, search for a flight, and stop at the results."></textarea></div>
+<fieldset class="targets"><legend>Run on</legend>
+<label class="target"><input type="radio" name="target" value="local" checked><span class="grow">This Mac</span><span class="faint" id="busy-local"></span></label>
+<label class="target"><input type="radio" name="target" value="vm"><span class="grow" id="vm-label">Virtual machine</span><span class="faint" id="busy-vm"></span></label>
+</fieldset>
+<div id="vm" class="field" hidden><label for="endpoint">VM desktop bridge</label>
+<div class="row"><input id="endpoint" type="url" placeholder="http://127.0.0.1:8790"><button id="check" type="button" class="btn">Check</button></div>
+<p id="health" class="hint">Screenshots, keyboard and pointer input stay inside the guest VM.</p>
+<div><button id="vm-open" type="button" class="btn small">Open VM</button></div></div>
+<label class="check"><input id="desktop" type="checkbox"><span><strong>Allow desktop control</strong><span class="hint" id="target-note">Uses this Mac’s mouse and keyboard.</span></span></label>
+<div class="list"><div class="switch-row"><span class="grow"><label for="recording-enabled"><strong>Task recording</strong></label><span class="hint" id="recording-note">Save a video of new VM tasks.</span></span><input id="recording-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="recording-note"></div></div>
+<button id="start" type="submit" class="btn primary">Start task</button>
+</form></section>
+</div>
+</div>
+<section class="panel" id="workflows" aria-labelledby="wf-title">
+<div class="panel-head"><h2 id="wf-title">Stored procedures</h2><span class="faint" id="wf-count"></span></div>
+<div class="wf"><div id="wf-list" class="wf-list" role="list"></div><div id="wf-detail" class="wf-detail"><p class="faint">Select a procedure to see its steps.</p></div></div>
+</section>
+<section class="panel" aria-labelledby="runs-title">
+<div class="panel-head"><h2 id="runs-title">Recent runs</h2><label for="filter" class="faint">Show</label><select id="filter"><option value="all">All recent runs</option><option value="active">Ongoing & paused</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>Status</th><th>Task</th><th>Desktop</th><th>Duration</th><th>Started</th></tr></thead><tbody id="runs"></tbody></table></div>
+<p id="runs-empty" class="empty" hidden>No runs to show.</p>
+</section>
+<dialog id="run-dialog" class="run-dialog" aria-labelledby="run-title">
+<div class="run-dialog-head"><h2 id="run-title" class="grow"></h2><button id="run-close" type="button" class="btn small" aria-label="Close run details">Close</button></div>
+<div id="run-summary" class="chips"></div>
+<p id="run-detail" class="detail"></p>
+<div id="run-video-box" class="run-video" hidden><video id="run-video" controls preload="metadata" playsinline></video><a id="run-video-link" class="hint" download>Download MP4</a></div>
+<div class="panel"><div class="panel-head"><h2>Steps</h2><span id="run-step-count" class="faint"></span></div><ol id="run-steps" class="steps-log"></ol></div>
+<div class="panel"><div class="panel-head"><h2>Full trace</h2><button id="run-trace-toggle" type="button" class="btn link" aria-expanded="false">Show</button></div><ol id="run-trace" class="events" hidden></ol></div>
+</dialog>
+<footer class="note">Workers keep running when this page closes. Paused runs need their worker alive. Use the menu-bar app to control them without switching windows.</footer>
+</main>
+</body></html>

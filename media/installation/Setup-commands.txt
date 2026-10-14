@@ -1,0 +1,78 @@
+ECHOPATH — INSTALLATION VIDEO COMPANION
+
+Watch: EchoPath-installation-macOS.mp4 (4 minutes 33 seconds)
+The film uses isolated UI previews with example settings. Run these steps in your own permanent EchoPath source folder.
+
+AGENT-LED ROUTE
+Give Codex or Claude Code this prompt:
+
+Install EchoPath from https://github.com/JackZhao1998/EchoPath. Read INSTALL.md and follow packaging/agents/echopath-setup/SKILL.md. Use my existing model login, build the Mac app, and leave VM integration off for now.
+
+MANUAL ROUTE
+Obtain the source from the repository or a source ZIP. For Git:
+
+git clone https://github.com/JackZhao1998/EchoPath.git
+cd EchoPath
+
+1. Prepare macOS
+The native menu-bar app requires macOS 13+, Xcode Command Line Tools, and a Python build providing libpython. Python 3.12 from uv or python.org is recommended. Install your selected Codex or Claude Code CLI and complete its normal sign-in. Network access is required.
+
+xcode-select --install
+
+Obtain the current EchoPath source folder or source ZIP, extract it, and put it in a permanent location. The app and MCP registration refer to that folder. Open Terminal there.
+
+2. Install for Codex and build the Mac app
+
+python3 packaging/setup.py install --backend codex --agent codex --app
+
+For Claude Code instead:
+
+python3 packaging/setup.py install --backend claude --agent claude --app
+
+3. Verify, then open
+
+python3 packaging/setup.py doctor
+python3 packaging/setup.py doctor --model
+
+The second command sends a small model request and consumes model quota. Open ~/Applications/EchoPath.app. Reload the selected coding agent if necessary, then call echopath_smoke_check from that host. For local Mac control, grant Accessibility and Screen Recording to the app under System Settings > Privacy & Security, then quit/reopen it. VM-only use does not require host-screen control.
+
+4. Choose a Linux or macOS VM
+
+A. Create a Linux VM on your Mac
+With Homebrew installed:
+
+brew install lima
+
+In EchoPath: Config > Virtual machine > Set up or edit a VM connection > Create a Linux VM on this Mac.
+The default instance is echopath-desktop, with 4 CPU cores, 4 GiB RAM, and 30 GiB disk capacity. Check your available resources. Choose Save connection, then Create VM & connect.
+Initial setup downloads Ubuntu 24.04, Xfce, a browser, and the guest bridge. It may take several minutes. Wait for Ready, then choose Open desktop.
+The managed guest has no host-folder mounts, but still has network access. Disconnecting preserves the VM and files; automatic snapshot reset is a separate, optional configuration.
+
+B. Connect an existing macOS VM (or Linux X11 VM)
+Start the VM with its desktop session signed in. For a macOS guest, enable Remote Login, install Python 3.10+ with venv support, and configure trusted SSH access with a key from the host.
+In EchoPath: Config > Virtual machine > Set up or edit a VM connection > Connect an existing VM with SSH.
+Enter the guest hostname or SSH alias. Choose Save connection > Test SSH > Install bridge & connect.
+In the macOS guest's System Settings > Privacy & Security, grant Accessibility and Screen Recording to ~/.local/share/echopath-guest/venv/bin/python, then restart the guest bridge service. Keep the graphical desktop signed in.
+Wait for Ready, then choose Open desktop. Model login, task history, and learned procedures stay on the host Mac for either guest OS.
+EchoPath connects to an already prepared macOS VM; the built-in Create VM option provisions Linux through Lima. Existing Linux guests require X11 and the packages listed in document/vm_setup.md. An existing desktop bridge URL is another connection option.
+
+5. Optionally enable JEV
+Open Config > OpenRouter. Supply your own valid OpenRouter token, choose Save & verify, then enable JEV replay helper. No real token appears in this film.
+JEV is off by default. It helps identify replay targets from screen text when visual matching needs recovery; it does not replace the planning model. Changes apply to new tasks. Screen text is sent to OpenRouter during replay recovery. OpenRouter usage may incur charges.
+The macOS host supplies the OCR capability, including for guest screenshots. The helper is suited to labels, links, and fields, rather than icon-only targets.
+
+6. Run a first task
+In Control Room, enter: Open the browser, go to example.com, and stop when the page loads.
+Choose Virtual machine, enable Allow desktop control, and select Start task. Task recording is optional and applies to new VM tasks.
+Wait for Paused before taking manual control; pause/stop are cooperative and may wait for a current model call. Review run history, recordings, and Stored procedures. Use as task copies a replay phrase to the composer for review; it does not launch immediately.
+With MCP, use the installed $echopath skill in Codex or /echopath in Claude Code, specifying the intended desktop target.
+
+REFERENCE
+Installation: INSTALL.md
+VM prerequisites and troubleshooting: document/vm_setup.md
+Repository: https://github.com/JackZhao1998/EchoPath
+
+A saved SSH alias such as echopath-macos is an example, not a preconfigured VM. Use your guest's actual hostname or SSH configuration.
+After granting macOS guest permissions, restart its bridge from a terminal inside that guest:
+
+launchctl kickstart -k gui/$(id -u)/org.echopath.guest

@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "echopath-core"
+version = "0.1.0"
+description = "EchoPath core runtime for GUI-oriented coding-agent tasks."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "httpx>=0.27,<1",
+    "mcp>=2,<3",
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "Pillow>=10",
+    "pyautogui>=0.9.54",
+    "pyperclip>=1.8",
+]
+
+[project.optional-dependencies]
+evaluation = [
+    "websocket-client>=1.6,<2",
+]
+mcp-dev = [
+    "mcp[cli]>=2,<3",
+]
+# Menu-bar app (echopath-dashboard --tray), screenshot masking and replay OCR on macOS.
+macos = [
+    "pyobjc-framework-ApplicationServices>=10; sys_platform == 'darwin'",
+    "pyobjc-framework-Cocoa>=10; sys_platform == 'darwin'",
+    "pyobjc-framework-Quartz>=10; sys_platform == 'darwin'",
+    "pyobjc-framework-WebKit>=10; sys_platform == 'darwin'",
+    "pyobjc-framework-Vision>=10; sys_platform == 'darwin'",
+]
+
+[project.scripts]
+echopath = "echopath.cli:main"
+echopath-mcp = "echopath.mcp.server:main"
+echopath-dashboard = "echopath.dashboard:main"
+echopath-vm-agent = "echopath.amazon_vm_agent:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+echopath = ["web/*.html", "web/*.css", "web/*.js"]

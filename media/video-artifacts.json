@@ -1,0 +1,153 @@
+{
+  "path_base": "media/",
+  "description": "Current finished video artifacts. SHA-256 values apply to MP4 bytes.",
+  "videos": [
+    {
+      "title": "EchoPath ad",
+      "kind": "commercial",
+      "description": "36-second edit paced to a 120 BPM electronic score, without transition sound effects and with BGM lowered 3 dB. One page at 00:24-00:32 combines six specialist tools with shopping, travel planning, and file organization. Opening: Paying again for repeat work? Your agent should learn better. Provisional average estimates of 85% fewer model tokens and 90% less execution time; concise macOS/Windows and VM setup narration.",
+      "video": "introduction/EchoPath-commercial-bright-36s.mp4",
+      "captions": [
+        "introduction/EchoPath-introduction-en.srt",
+        "introduction/EchoPath-introduction-en.vtt"
+      ],
+      "duration_seconds": 36.0,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30.0,
+      "bytes": 7296108,
+      "sha256": "aabe328fcf686c96232258ddab016e2bfbcf66e50462dc0f5e6106a874337191",
+      "validation": "Fully decoded without errors; 36 seconds/1080 frames at 1080p/30 fps; seven chapters; scene starts on musical bars; synchronized captions; -16.01 LUFS and -1.03 dBTP; combined examples page visually inspected in the encoded video. Savings percentages are user-supplied provisional estimates pending benchmark validation.",
+      "poster": "introduction/EchoPath-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/fd8e4267-a16f-42fc-8a46-0e2ad8ca02ac"
+    },
+    {
+      "title": "Installation tutorial (macOS)",
+      "kind": "tutorial",
+      "description": "The original macOS installation walkthrough.",
+      "video": "installation/EchoPath-installation-macOS.mp4",
+      "captions": [
+        "installation/EchoPath-installation-macOS-en.srt",
+        "installation/EchoPath-installation-macOS-en.vtt"
+      ],
+      "duration_seconds": 272.866667,
+      "width": 1920,
+      "height": 1080,
+      "fps": 30.0,
+      "bytes": 10731176,
+      "sha256": "6e456fa327da2a2bdad5a52a6fefc4b3718af822ec08a7c1cfc4b5ffb2ee7f71",
+      "validation": "Matches the previously full-decoded and verified video.",
+      "poster": "installation/EchoPath-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/0376afc8-3d75-48cb-8f1c-21b23f829fea"
+    },
+    {
+      "title": "3D Slicer",
+      "kind": "software-demo",
+      "description": "Medical imaging: CT visualization and scene saving.",
+      "video": "demos/slicer/echopath-slicer-demo.mp4",
+      "captions": [
+        "demos/slicer/echopath-slicer-demo.srt"
+      ],
+      "duration_seconds": 83.5,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 5050536,
+      "sha256": "0ec1d77dde5d870daa82bfbd56b1df0e030945e42f89f1c374894b4c58865301",
+      "validation": "Matches the previously full-decoded and verified video.",
+      "poster": "demos/slicer/echopath-slicer-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/b3b97a96-7d68-443e-a66b-e89795e39098"
+    },
+    {
+      "title": "ImageJ",
+      "kind": "software-demo",
+      "description": "Scientific imaging: calibrated particle analysis and export.",
+      "video": "demos/imagej/echopath-imagej-demo.mp4",
+      "captions": [
+        "demos/imagej/echopath-imagej-demo.srt"
+      ],
+      "duration_seconds": 85.125,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 8712148,
+      "sha256": "29cf827f4d51560523204f5048fcfa9e7454d804ecae81e77a1d693acd795f44",
+      "validation": "Matches the previously full-decoded and verified video.",
+      "poster": "demos/imagej/echopath-imagej-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/ab280e6a-5d96-4de9-9fc4-4a137a7ec288"
+    },
+    {
+      "title": "LibreOffice Calc",
+      "kind": "software-demo",
+      "description": "Finance: invoice exception review, filtering, and charting.",
+      "video": "demos/calc/echopath-calc-demo.mp4",
+      "captions": [
+        "demos/calc/echopath-calc-demo.srt"
+      ],
+      "duration_seconds": 87.125,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 6224901,
+      "sha256": "07ca61b1a839ad5010b7f8ae22ed5045838b176ae7b57dfe28c67e65b6225525",
+      "validation": "Matches the previously full-decoded and verified video.",
+      "poster": "demos/calc/echopath-calc-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/8d53670e-66dd-4300-aca5-dcc807f40601"
+    },
+    {
+      "title": "FreeCAD",
+      "kind": "software-demo",
+      "description": "Engineering: parametric modeling and CAD export.",
+      "video": "demos/freecad/echopath-freecad-demo.mp4",
+      "captions": [
+        "demos/freecad/echopath-freecad-demo.srt"
+      ],
+      "duration_seconds": 81.375,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 3433055,
+      "sha256": "bcd1b340f8a5990ac549f4c40b9b3da5684a01d65ec49fed52904fc75173f49d",
+      "validation": "Matches the previously full-decoded and verified video.",
+      "poster": "demos/freecad/echopath-freecad-poster.jpg",
+      "github_attachment_url": "https://github.com/user-attachments/assets/a3950a2b-c6b6-45b0-992d-bfd6eeb0fc85"
+    },
+    {
+      "title": "QGIS",
+      "kind": "software-demo",
+      "description": "Mapping: clinic service areas and household coverage.",
+      "video": "demos/qgis/echopath-qgis-demo.mp4",
+      "captions": [
+        "demos/qgis/echopath-qgis-demo.srt"
+      ],
+      "poster": "demos/qgis/echopath-qgis-poster.jpg",
+      "validation": "Artifact checks and full video decode passed; encoded frames visually reviewed.",
+      "duration_seconds": 89.0,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 4538156,
+      "sha256": "60e6ee5434dae9c7164fb144815318d1d40260b9ac192de0844b71f0e8d3573e",
+      "github_attachment_url": "https://github.com/user-attachments/assets/db2f52be-6f14-4dcc-a000-7295e05ebe85"
+    },
+    {
+      "title": "Audacity",
+      "kind": "software-demo",
+      "description": "Audio production: rumble filtering, normalization, and local export.",
+      "video": "demos/audacity/echopath-audacity-demo.mp4",
+      "captions": [
+        "demos/audacity/echopath-audacity-demo.srt"
+      ],
+      "poster": "demos/audacity/echopath-audacity-poster.jpg",
+      "validation": "Artifact checks and full video decode passed; encoded frames visually reviewed.",
+      "duration_seconds": 84.0,
+      "width": 1920,
+      "height": 1080,
+      "fps": 24.0,
+      "bytes": 3931077,
+      "sha256": "a5fe2ea0b335d6e54d6fb262af6123c2cc27d9dffd1a82a7d97c821764b9cf29",
+      "github_attachment_url": "https://github.com/user-attachments/assets/34efd07d-bba8-411a-98f9-16034809b60d"
+    }
+  ],
+  "unfinished_software_videos": []
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EchoPath</title><link rel="stylesheet" href="/dashboard.css"><script defer src="/common.js"></script><script defer src="/tray.js"></script></head>
+<body class="tray">
+<header class="t-head">
+<span class="mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="11" r="2.4" fill="currentColor" stroke="none"/><path d="M11.5 6.5a6.4 6.4 0 0 1 0 9"/><path d="M15 3.8a10.2 10.2 0 0 1 0 14.4"/></svg></span>
+<span class="brand grow">EchoPath</span><span id="pill" class="badge" role="status">…</span>
+</header>
+<main class="t-body">
+<div id="error" class="error" role="alert" hidden></div>
+<div id="banner" class="banner" hidden>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+<span>EchoPath let go of your mouse and keyboard so you can use this Mac. Resume when you’re done.</span>
+</div>
+<div id="runs" class="stack"></div>
+<p id="vm-note" class="hint" hidden>Runs on a VM keep going while this menu is open.</p>
+<div id="recent" hidden></div>
+<form id="launch" class="stack" hidden>
+<label for="task" class="label">New task</label>
+<textarea id="task" required maxlength="16000" placeholder="Describe what to do on screen…"></textarea>
+<div class="seg" role="radiogroup" aria-label="Run on">
+<label><input type="radio" name="target" value="local" checked>This Mac</label>
+<label><input type="radio" name="target" value="vm" id="vm-radio">Virtual machine</label>
+</div>
+<div class="list">
+<div class="switch-row"><span class="grow"><label for="desktop"><strong>Live desktop control</strong></label><span class="hint" id="desktop-note">Off: EchoPath plans but won’t touch your screen.</span></span><input id="desktop" type="checkbox" class="switch" role="switch" aria-describedby="desktop-note"></div>
+<div class="switch-row"><span class="grow"><label for="recording-enabled"><strong>Task recording</strong></label><span class="hint" id="recording-note">Save a video of new VM tasks.</span></span><input id="recording-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="recording-note"></div>
+</div>
+<button id="start" type="submit" class="btn primary">Start task</button>
+</form>
+<section id="wf" class="stack" hidden>
+<div class="row"><span class="label grow">Stored procedures</span><button id="wf-all" type="button" class="btn link">See all</button></div>
+<div id="wf-list" class="list"></div>
+</section>
+</main>
+<footer class="t-foot"><button id="open" type="button" class="btn link">Open Control Room</button><button id="config-open" type="button" class="btn link">Config</button><button id="quit" type="button" class="btn link">Quit EchoPath</button></footer>
+</body></html>

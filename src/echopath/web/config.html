@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EchoPath · Configuration</title><link rel="stylesheet" href="/dashboard.css"><script defer src="/config.js"></script></head>
+<body class="config-page">
+<header class="topbar"><div class="wrap"><span class="brand">EchoPath</span><span class="sub">Configuration</span></div></header>
+<main class="config-wrap stack">
+<div><h1>Configuration</h1><p class="config-intro">Set up connections, plugins, and task recording.</p></div>
+<div id="config-error" class="error" role="alert" hidden></div>
+<section class="panel" aria-labelledby="vm-title">
+<div class="panel-head"><h2 id="vm-title">Virtual machine</h2><span id="vm-badge" class="badge">Off</span></div>
+<div class="config-section stack">
+<div class="switch-row"><span class="grow"><label for="vm-enabled"><strong>Use a virtual machine</strong></label><span class="hint">Add a separate desktop for EchoPath tasks. Your model login and task history stay on this computer.</span></span><input id="vm-enabled" type="checkbox" class="switch" role="switch" disabled></div>
+<p id="vm-status" class="config-result" role="status" aria-live="polite">Loading connection settings…</p>
+<details id="vm-setup-details"><summary>Set up or edit a VM connection</summary>
+<form id="vm-form" class="stack" autocomplete="off">
+<div class="field"><label for="vm-mode">Set up a desktop</label><select id="vm-mode"><option value="ssh">Connect an existing VM with SSH</option><option value="lima">Create a Linux VM on this Mac</option><option value="direct">Connect an existing desktop bridge</option></select></div>
+<div class="field"><label for="vm-name">Connection name</label><input id="vm-name" maxlength="80" value="My VM" placeholder="Work VM"></div>
+<div id="vm-ssh-fields" class="stack">
+<div class="field"><label for="vm-host">SSH host or saved alias</label><input id="vm-host" spellcheck="false" placeholder="my-vm or 192.168.1.20" maxlength="253"></div>
+<div class="config-grid"><div class="field"><label for="vm-user">Username <span class="faint">(optional for an alias)</span></label><input id="vm-user" spellcheck="false" maxlength="64"></div><div class="field"><label for="vm-port">SSH port</label><input id="vm-port" type="number" min="1" max="65535" placeholder="From SSH config, otherwise 22"></div></div>
+<div class="field"><label for="vm-identity">Private key file <span class="faint">(optional)</span></label><input id="vm-identity" spellcheck="false" placeholder="Leave blank to use your SSH agent or config"></div>
+<p class="hint">Keys stay in your SSH setup. Connect once in Terminal to verify a new host’s fingerprint and unlock your key. Automatic guest installation supports Linux and macOS with Python 3.10+.</p>
+</div>
+<div id="vm-lima-fields" class="stack" hidden>
+<p class="hint">Creates a dedicated Ubuntu 24.04 desktop with a browser. Requires macOS and Lima (install with <code>brew install lima</code>). The first setup downloads the OS and desktop packages and can take several minutes. Host folders are not shared.</p>
+<div class="field"><label for="vm-instance">VM name</label><input id="vm-instance" value="echopath-desktop" pattern="echopath-[a-z0-9][a-z0-9-]*" maxlength="49"></div>
+<div class="config-grid"><div class="field"><label for="vm-cpus">CPU cores</label><input id="vm-cpus" type="number" value="4" min="2" max="16"></div><div class="field"><label for="vm-memory">Memory (GiB)</label><input id="vm-memory" type="number" value="4" min="2" max="32"></div><div class="field"><label for="vm-disk">Disk capacity (GiB)</label><input id="vm-disk" type="number" value="30" min="20" max="200"></div></div>
+<p class="hint">The desktop is persistent. Turning this integration off disconnects EchoPath and keeps the VM and its files.</p>
+</div>
+<div id="vm-direct-fields" class="field" hidden><label for="vm-endpoint">Desktop bridge URL</label><input id="vm-endpoint" type="url" placeholder="http://127.0.0.1:8790" spellcheck="false"><p class="hint">Use an existing local tunnel or an authenticated HTTPS bridge.</p></div>
+<details id="vm-advanced"><summary>Advanced connection settings</summary><div class="stack config-advanced">
+<div id="vm-tunnel-fields" class="config-grid"><div class="field"><label for="vm-local-port">Local tunnel port</label><input id="vm-local-port" type="number" min="1024" max="65535" value="8791"></div><div class="field"><label for="vm-bridge-port">Guest bridge port</label><input id="vm-bridge-port" type="number" min="1024" max="65535" value="8790"></div></div>
+<div id="vm-display-fields" class="config-grid"><div class="field"><label for="vm-display">Linux X11 display</label><input id="vm-display" value=":0" spellcheck="false"></div><div class="field"><label for="vm-xauthority">Xauthority file <span class="faint">(optional)</span></label><input id="vm-xauthority" placeholder="Guest path; defaults to ~/.Xauthority" spellcheck="false"></div></div>
+<div class="field"><label for="vm-key">Existing bridge key <span class="faint">(optional)</span></label><input id="vm-key" type="password" autocomplete="new-password" maxlength="512" placeholder="Generated automatically when installing a guest bridge"><p id="vm-key-note" class="hint">Leave blank to keep the saved key. Keys are stored privately and never returned to this page.</p></div>
+<label class="vm-check"><input id="vm-reconnect" type="checkbox" checked> Reconnect automatically while enabled</label>
+</div></details>
+<div class="config-actions"><button id="vm-save" type="submit" class="btn primary">Save connection</button><span id="vm-edit-note" class="hint"></span></div>
+</form>
+</details>
+<div class="config-actions"><button id="vm-test" type="button" class="btn" disabled>Test SSH</button><button id="vm-install" type="button" class="btn" disabled>Install bridge &amp; connect</button><button id="vm-create" type="button" class="btn primary" hidden>Create VM &amp; connect</button><button id="vm-connect" type="button" class="btn" disabled>Connect</button><button id="vm-open" type="button" class="btn" disabled>Open desktop</button><button id="vm-disconnect" type="button" class="btn link" disabled>Disconnect</button></div>
+<p id="vm-result" class="config-result" role="status" aria-live="polite"></p>
+</div>
+</section>
+<section class="panel" aria-labelledby="openrouter-title">
+<div class="panel-head"><h2 id="openrouter-title">OpenRouter</h2><span id="token-badge" class="badge">Loading…</span></div>
+<div class="config-section stack">
+<form id="token-form" class="stack" autocomplete="off">
+<div class="field"><label for="openrouter-token">API token</label><input id="openrouter-token" name="openrouter-token" type="password" autocomplete="new-password" spellcheck="false" maxlength="512" placeholder="Paste an OpenRouter API token" aria-describedby="token-storage"></div>
+<p id="token-storage" class="hint">Stored locally in your Git-ignored credential file. The saved token is never displayed.</p>
+<div class="config-actions"><button id="token-save" class="btn primary" type="submit" disabled>Save &amp; verify</button><button id="token-test" class="btn" type="button" disabled>Test saved token</button><button id="token-remove" class="btn link" type="button" disabled>Remove token</button></div>
+</form>
+<p id="token-result" class="config-result" role="status" aria-live="polite">Checking configuration…</p>
+</div>
+<div class="config-section config-divider">
+<div class="switch-row"><span class="grow"><label for="jev-enabled"><strong>JEV replay helper</strong></label><span class="hint">Find replay targets using screen text and the JEV decision model.</span></span><input id="jev-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="jev-note"></div>
+<p id="jev-note" class="hint">Disabled until a valid OpenRouter token is available.</p>
+<p class="hint config-privacy">When enabled, screen text is sent to OpenRouter during replay recovery.</p>
+<p id="jev-result" class="config-result" role="status" aria-live="polite"></p>
+</div>
+</section>
+<section class="panel" aria-labelledby="recording-title">
+<div class="panel-head"><h2 id="recording-title">Recording</h2></div>
+<div class="config-section">
+<div class="switch-row"><span class="grow"><label for="recording-enabled"><strong>Task recording</strong></label><span class="hint" id="recording-note">Save a video of new VM tasks. Changes apply to the next task.</span></span><input id="recording-enabled" type="checkbox" class="switch" role="switch" disabled aria-describedby="recording-note"></div>
+<p class="hint config-privacy">Videos stay on this Mac and can be played or downloaded from Recent runs. Your Mac’s desktop is not recorded.</p>
+<p id="recording-result" class="config-result" role="status" aria-live="polite"></p>
+</div>
+</section>
+<section class="panel" aria-labelledby="bridges-title">
+<div class="panel-head"><h2 id="bridges-title">Model bridges</h2></div>
+<div class="config-section"><p class="hint">Test the local CLI bridges using your existing sign-in. Each test sends a small model request and can take up to 50 seconds.</p></div>
+<div class="config-section config-divider"><div class="row"><div class="grow"><h2>Codex</h2><p class="hint">EchoPath → Codex CLI → model response</p></div><button id="codex-test" type="button" class="btn">Test Codex</button></div><p id="codex-result" class="config-result" role="status" aria-live="polite">Not tested yet.</p></div>
+<div class="config-section config-divider"><div class="row"><div class="grow"><h2>Claude Code</h2><p class="hint">EchoPath → Claude Code CLI → model response</p></div><button id="claude-test" type="button" class="btn">Test Claude Code</button></div><p id="claude-result" class="config-result" role="status" aria-live="polite">Not tested yet.</p></div>
+</section>
+</main></body></html>

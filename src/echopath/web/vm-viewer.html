@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EchoPath · VM desktop</title><link rel="stylesheet" href="/dashboard.css"><script defer src="/vm-viewer.js"></script></head>
+<body class="vm-viewer">
+<header class="viewer-toolbar">
+<div class="grow"><h1>VM desktop</h1><p id="viewer-endpoint" class="faint mono"></p></div>
+<span id="viewer-status" class="badge" role="status">Connecting…</span>
+<button id="viewer-control" type="button" class="btn primary small" aria-pressed="false" disabled>Control VM</button>
+<button id="viewer-task-pause" type="button" class="btn small" hidden>Pause task</button>
+<button id="viewer-text" type="button" class="btn small" disabled>Send text</button>
+<button id="viewer-pause" type="button" class="btn small" aria-pressed="false">Pause view</button>
+<button id="viewer-fullscreen" type="button" class="btn small">Full screen</button>
+</header>
+<section id="viewer-task" class="viewer-task" aria-label="VM task progress" hidden><strong id="viewer-task-title"></strong><span id="viewer-task-detail" role="status"></span></section>
+<div id="viewer-error" class="viewer-error" role="alert" hidden></div>
+<div id="viewer-input-error" class="viewer-error" role="alert" hidden></div>
+<div class="viewer-input-bar"><span id="viewer-input-hint" class="grow">Checking desktop control…</span>
+<label for="viewer-key">Send key</label><select id="viewer-key" aria-label="Key or shortcut to send" disabled><option value="enter">Enter</option><option value="esc">Escape</option><option value="tab">Tab</option><option value="alt,tab">Alt + Tab</option><option value="alt,f4">Alt + F4</option><option value="ctrl,alt,t">Ctrl + Alt + T</option><option value="win">Super / Windows</option></select><button id="viewer-send-key" type="button" class="btn small" disabled>Send</button></div>
+<main id="viewer-stage" class="viewer-stage" tabindex="0" aria-label="Live VM desktop. Enable Control VM, then click here to type.">
+<p id="viewer-empty">Connecting to the VM…</p>
+<img id="viewer-screen" alt="Live view of the virtual machine desktop" draggable="false" hidden>
+</main>
+<footer class="viewer-footer"><span id="viewer-mode">View only</span><span id="viewer-updated">Waiting for the first image</span></footer>
+<dialog id="viewer-text-dialog" class="viewer-text-dialog"><form id="viewer-text-form"><label for="viewer-text-value">Text to send to the VM</label><textarea id="viewer-text-value" rows="5" maxlength="4000" placeholder="Type or paste text here"></textarea><div class="row"><button type="submit" class="btn primary">Send text</button><button id="viewer-text-cancel" type="button" class="btn">Cancel</button></div></form></dialog>
+</body></html>

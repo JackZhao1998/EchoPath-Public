@@ -1,0 +1,75 @@
+1
+00:00:04,000 --> 00:00:08,375
+Load a synthetic microscope image from local storage.
+
+2
+00:00:08,375 --> 00:00:11,750
+Define two pixels per micrometre in the native scale dialog.
+
+3
+00:00:11,750 --> 00:00:15,125
+Enter um so area measurements use calibrated units.
+
+4
+00:00:15,125 --> 00:00:18,500
+The image now spans 256 × 200 micrometres.
+
+5
+00:00:18,500 --> 00:00:22,875
+Use ImageJ's threshold preview to select bright objects.
+
+6
+00:00:22,875 --> 00:00:26,250
+Specify the lower threshold of 100; the upper limit is 255.
+
+7
+00:00:26,250 --> 00:00:30,125
+Apply the explicit threshold before measuring particles.
+
+8
+00:00:30,125 --> 00:00:33,500
+Open the native particle-analysis controls.
+
+9
+00:00:33,500 --> 00:00:36,875
+Keep particles between 50 and 500 square micrometres.
+
+10
+00:00:36,875 --> 00:00:40,250
+Set circularity between 0.50 and 1.00.
+
+11
+00:00:40,250 --> 00:00:44,125
+Exclude edge objects and request numbered outlines and a summary.
+
+12
+00:00:44,125 --> 00:00:49,500
+The analysis produces 20 numbered particle outlines.
+
+13
+00:00:49,500 --> 00:00:54,875
+The Summary table reports Count = 20, matching the test input.
+
+14
+00:00:54,875 --> 00:00:58,750
+Review the individual calibrated particle areas.
+
+15
+00:00:58,750 --> 00:01:02,125
+Export the measurement table as a local CSV file.
+
+16
+00:01:02,125 --> 00:01:05,500
+Save the CSV before exporting the numbered outlines.
+
+17
+00:01:05,500 --> 00:01:09,375
+Export the numbered outlines as a local TIFF image.
+
+18
+00:01:09,375 --> 00:01:13,750
+The measurement CSV and outline TIFF are now saved.
+
+19
+00:01:13,750 --> 00:01:19,125
+Inspect the calibrated measurements beside the numbered objects.

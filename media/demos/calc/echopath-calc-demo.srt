@@ -1,0 +1,75 @@
+1
+00:00:04,000 --> 00:00:07,375
+Choose a synthetic invoice ledger from local storage.
+
+2
+00:00:07,375 --> 00:00:10,750
+The ledger contains 24 invoices and five source columns.
+
+3
+00:00:10,750 --> 00:00:15,125
+Paste variance, duplicate-ID, and review-status formulas into Calc.
+
+4
+00:00:15,125 --> 00:00:18,500
+Keep the analysis editable in the spreadsheet.
+
+5
+00:00:18,500 --> 00:00:24,875
+Fill down through all 24 invoices to identify five review rows.
+
+6
+00:00:24,875 --> 00:00:28,250
+Calculate exception counts, expected total, and net variance.
+
+7
+00:00:28,250 --> 00:00:33,625
+The summary reports five review rows and net variance 305.
+
+8
+00:00:33,625 --> 00:00:37,000
+Use SUMIF formulas to summarize variance for each vendor.
+
+9
+00:00:37,000 --> 00:00:41,375
+The vendor variances reconcile to the ledger total of 305.
+
+10
+00:00:41,375 --> 00:00:44,750
+Display expected, paid, and variance values with two decimals.
+
+11
+00:00:44,750 --> 00:00:48,125
+The vendor table is ready for a native column chart.
+
+12
+00:00:48,125 --> 00:00:51,500
+Create a column chart from K10:L14 with vendor labels.
+
+13
+00:00:51,500 --> 00:00:54,875
+Enter Invoice variance by vendor in the native chart wizard.
+
+14
+00:00:54,875 --> 00:01:00,250
+Compare positive and negative vendor variances in Calc.
+
+15
+00:01:00,250 --> 00:01:04,625
+Add filter controls to all eight ledger headers; keep all rows visible.
+
+16
+00:01:04,625 --> 00:01:08,000
+Enter a local destination for the review workbook.
+
+17
+00:01:08,000 --> 00:01:11,375
+Choose ODF Spreadsheet to retain formulas, filters, and the chart.
+
+18
+00:01:11,375 --> 00:01:15,750
+The title bar confirms invoice-exception-review.ods.
+
+19
+00:01:15,750 --> 00:01:21,125
+The saved workbook contains the invoice checks, summary, and vendor chart.

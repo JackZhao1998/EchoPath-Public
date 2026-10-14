@@ -1,0 +1,594 @@
+{
+  "artifact_evidence": [],
+  "concrete_purpose_summary": "Activate Weather, search for Seattle, open the top result, show the 10-day forecast, then quit Weather.",
+  "consolidated_operations": [
+    {
+      "action": "activate_app",
+      "app_name": "Weather",
+      "expected_outcome": "Weather opens or comes to the front."
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The Weather window is visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Weather search field is focused.",
+      "interval": 0.0,
+      "x": 212,
+      "y": 420
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The search field is ready for a location.",
+      "seconds": 0.3
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing search text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "dynamic_input": {
+        "format": "plain_text",
+        "name": "weather_location"
+      },
+      "expected_outcome": "The requested location is entered into Weather search.",
+      "text": "Seattle"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Weather search results are visible.",
+      "seconds": 1.0
+    },
+    {
+      "action": "press",
+      "expected_outcome": "The top matching location result opens.",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The location forecast and 10-day forecast are visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Weather quits after showing the forecast.",
+      "keys": [
+        "command",
+        "q"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Weather is closed.",
+      "seconds": 1.0
+    }
+  ],
+  "consolidation": {
+    "created_for_public_example_pack": true,
+    "dynamic_input_policy": "weather_location is pasted into Weather search; Return opens the top search result.",
+    "launcher_policy": "Use activate_app instead of Spotlight so replay does not depend on the current foreground app receiving global shortcuts.",
+    "recorded_from_live_desktop": true,
+    "state_reset_policy": "The workflow does not press Add, does not accept location permission, and quits Weather at the end.",
+    "visual_crop_policy": "Only the generic Weather search field target icon is included; no saved-location or private-location screenshots are bundled."
+  },
+  "created_at": "2026-09-01T01:03:42+00:00",
+  "generalization": {
+    "canonical": {
+      "app_name": "Weather",
+      "final_state": "Weather closed",
+      "result_selection": "top_search_result",
+      "target_view": "10-Day Forecast",
+      "weather_location": "Seattle"
+    },
+    "intent_keys": [
+      "open weather search location show forecast close weather",
+      "show weather forecast for a location and close weather"
+    ],
+    "kind": "local_gui_weather_location",
+    "name": "Show A Location Forecast In macOS Weather",
+    "parameters": [
+      {
+        "canonical_value": "Seattle",
+        "format": "plain_text",
+        "name": "weather_location"
+      }
+    ],
+    "purpose_summary": "Use the visible Weather app to search for a location, show its forecast, and quit the app."
+  },
+  "goal_coverage": "full",
+  "match_keys": [
+    "Open Weather, search for Seattle, show the 10-day forecast, then close Weather."
+  ],
+  "platform": "darwin",
+  "memory_id": "local-demo-weather-location-forecast-close",
+  "purpose_summary": "Open macOS Weather, search for a location, show its forecast, and quit Weather.",
+  "record_type": "consolidated_memory",
+  "replay_key": "Open Weather, search for Seattle, show the 10-day forecast, then close Weather.",
+  "replay_task": {
+    "goal": "Open Weather, search for Seattle, show the 10-day forecast, then close Weather.",
+    "payload": {
+      "actions": [
+        {
+          "action": "activate_app",
+          "app_name": "Weather",
+          "expected_outcome": "Weather opens or comes to the front."
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The Weather window is visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Weather search field is focused.",
+          "interval": 0.0,
+          "x": 212,
+          "y": 420
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The search field is ready for a location.",
+          "seconds": 0.3
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing search text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "dynamic_input": {
+            "format": "plain_text",
+            "name": "weather_location"
+          },
+          "expected_outcome": "The requested location is entered into Weather search.",
+          "text": "Seattle"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Weather search results are visible.",
+          "seconds": 1.0
+        },
+        {
+          "action": "press",
+          "expected_outcome": "The top matching location result opens.",
+          "key": "enter"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The location forecast and 10-day forecast are visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Weather quits after showing the forecast.",
+          "keys": [
+            "command",
+            "q"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Weather is closed.",
+          "seconds": 1.0
+        }
+      ],
+      "app": "Weather",
+      "capture_after_action": true,
+      "final_state": "Weather app closed",
+      "memory_replay_coordinate_copy_first": false,
+      "memory_replay_fallback_to_planning": true,
+      "memory_replay_visual_bindings": [
+        {
+          "action": "click",
+          "action_index": 3,
+          "click_ratio": [
+            0.5,
+            0.5
+          ],
+          "match_mode": "gray",
+          "max_scale": 1.35,
+          "min_match_margin": 0.02,
+          "min_scale": 0.75,
+          "node_id": "weather-search-field",
+          "original_coordinates": {
+            "x": 212,
+            "y": 420
+          },
+          "path_id": "local-demo-weather-location-forecast-close",
+          "reference_candidates": [],
+          "reference_image_path": "memory/consolidated/crops/local-demo-weather-location-forecast-close/weather-search-field-empty-b7a978fbf354.png",
+          "reference_image_sha256": "917844efc21b543c361e3178a6c7ddc1ce4322673a903535e335cc78d8c0cb80",
+          "scale_step": 0.05,
+          "source": {
+            "recorded_on": "macOS Weather",
+            "source_screenshots": [
+              "weather-record-07-fullscreen-weather-front.png"
+            ],
+            "stable_target": "weather-search-field",
+            "type": "local_recorded_component_crop"
+          },
+          "target_bbox": {
+            "height": 36,
+            "width": 252,
+            "x": 0,
+            "y": 0
+          },
+          "threshold": 0.74
+        }
+      ],
+      "memory_replay_visual_reaim_required": true,
+      "replay_mode": "visual_gui",
+      "step_verification_failure_policy": "advisory",
+      "target_view": "10-Day Forecast",
+      "verify_after_action": false,
+      "verify_goal_completion": false,
+      "weather_location": "Seattle"
+    },
+    "summary": "Show Weather forecast for Seattle and close Weather",
+    "type": "desktop_task"
+  },
+  "replayable": true,
+  "schema_version": 1,
+  "source": {
+    "session_id": "packaged-local-gui-memories",
+    "source_detail_path": null,
+    "task_id": "weather-location-forecast-close",
+    "trajectory_id": "packaged-local-gui-memories:weather-location-forecast-close",
+    "trajectory_path": null
+  },
+  "status": "active",
+  "steps": [
+    {
+      "action": {
+        "action": "activate_app",
+        "app_name": "Weather",
+        "expected_outcome": "Weather opens or comes to the front."
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-01",
+      "step_index": 1,
+      "summary": "Weather opens or comes to the front."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "The Weather window is visible.",
+        "seconds": 2.0
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-02",
+      "step_index": 2,
+      "summary": "The Weather window is visible."
+    },
+    {
+      "action": {
+        "action": "click",
+        "button": "left",
+        "clicks": 1,
+        "expected_outcome": "The Weather search field is focused.",
+        "interval": 0.0,
+        "x": 212,
+        "y": 420
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-03",
+      "step_index": 3,
+      "summary": "The Weather search field is focused."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "The search field is ready for a location.",
+        "seconds": 0.3
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-04",
+      "step_index": 4,
+      "summary": "The search field is ready for a location."
+    },
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Any existing search text is selected.",
+        "keys": [
+          "command",
+          "a"
+        ]
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-05",
+      "step_index": 5,
+      "summary": "Any existing search text is selected."
+    },
+    {
+      "action": {
+        "action": "paste_text",
+        "dynamic_input": {
+          "format": "plain_text",
+          "name": "weather_location"
+        },
+        "expected_outcome": "The requested location is entered into Weather search.",
+        "text": "Seattle"
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-06",
+      "step_index": 6,
+      "summary": "The requested location is entered into Weather search."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "Weather search results are visible.",
+        "seconds": 1.0
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-07",
+      "step_index": 7,
+      "summary": "Weather search results are visible."
+    },
+    {
+      "action": {
+        "action": "press",
+        "expected_outcome": "The top matching location result opens.",
+        "key": "enter"
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-08",
+      "step_index": 8,
+      "summary": "The top matching location result opens."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "The location forecast and 10-day forecast are visible.",
+        "seconds": 2.0
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-09",
+      "step_index": 9,
+      "summary": "The location forecast and 10-day forecast are visible."
+    },
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Weather quits after showing the forecast.",
+        "keys": [
+          "command",
+          "q"
+        ]
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-10",
+      "step_index": 10,
+      "summary": "Weather quits after showing the forecast."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "Weather is closed.",
+        "seconds": 1.0
+      },
+      "node_id": "local-demo-weather-location-forecast-close-step-11",
+      "step_index": 11,
+      "summary": "Weather is closed."
+    }
+  ],
+  "successful_operations": [
+    {
+      "action": "activate_app",
+      "app_name": "Weather",
+      "expected_outcome": "Weather opens or comes to the front."
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The Weather window is visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Weather search field is focused.",
+      "interval": 0.0,
+      "x": 212,
+      "y": 420
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The search field is ready for a location.",
+      "seconds": 0.3
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing search text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "dynamic_input": {
+        "format": "plain_text",
+        "name": "weather_location"
+      },
+      "expected_outcome": "The requested location is entered into Weather search.",
+      "text": "Seattle"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Weather search results are visible.",
+      "seconds": 1.0
+    },
+    {
+      "action": "press",
+      "expected_outcome": "The top matching location result opens.",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The location forecast and 10-day forecast are visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Weather quits after showing the forecast.",
+      "keys": [
+        "command",
+        "q"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Weather is closed.",
+      "seconds": 1.0
+    }
+  ],
+  "tags": [
+    "example",
+    "local-gui",
+    "weather",
+    "forecast",
+    "macos",
+    "dynamic-input",
+    "gui-replay",
+    "visual-reaim",
+    "component-crop"
+  ],
+  "task": {
+    "goal": "Open Weather, search for Seattle, show the 10-day forecast, then close Weather.",
+    "payload": {
+      "actions": [
+        {
+          "action": "activate_app",
+          "app_name": "Weather",
+          "expected_outcome": "Weather opens or comes to the front."
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The Weather window is visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Weather search field is focused.",
+          "interval": 0.0,
+          "x": 212,
+          "y": 420
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The search field is ready for a location.",
+          "seconds": 0.3
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing search text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "dynamic_input": {
+            "format": "plain_text",
+            "name": "weather_location"
+          },
+          "expected_outcome": "The requested location is entered into Weather search.",
+          "text": "Seattle"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Weather search results are visible.",
+          "seconds": 1.0
+        },
+        {
+          "action": "press",
+          "expected_outcome": "The top matching location result opens.",
+          "key": "enter"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The location forecast and 10-day forecast are visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Weather quits after showing the forecast.",
+          "keys": [
+            "command",
+            "q"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Weather is closed.",
+          "seconds": 1.0
+        }
+      ],
+      "app": "Weather",
+      "capture_after_action": true,
+      "final_state": "Weather app closed",
+      "memory_replay_coordinate_copy_first": false,
+      "memory_replay_fallback_to_planning": true,
+      "memory_replay_visual_bindings": [
+        {
+          "action": "click",
+          "action_index": 3,
+          "click_ratio": [
+            0.5,
+            0.5
+          ],
+          "match_mode": "gray",
+          "max_scale": 1.35,
+          "min_match_margin": 0.02,
+          "min_scale": 0.75,
+          "node_id": "weather-search-field",
+          "original_coordinates": {
+            "x": 212,
+            "y": 420
+          },
+          "path_id": "local-demo-weather-location-forecast-close",
+          "reference_candidates": [],
+          "reference_image_path": "memory/consolidated/crops/local-demo-weather-location-forecast-close/weather-search-field-empty-b7a978fbf354.png",
+          "reference_image_sha256": "917844efc21b543c361e3178a6c7ddc1ce4322673a903535e335cc78d8c0cb80",
+          "scale_step": 0.05,
+          "source": {
+            "recorded_on": "macOS Weather",
+            "source_screenshots": [
+              "weather-record-07-fullscreen-weather-front.png"
+            ],
+            "stable_target": "weather-search-field",
+            "type": "local_recorded_component_crop"
+          },
+          "target_bbox": {
+            "height": 36,
+            "width": 252,
+            "x": 0,
+            "y": 0
+          },
+          "threshold": 0.74
+        }
+      ],
+      "memory_replay_visual_reaim_required": true,
+      "replay_mode": "visual_gui",
+      "step_verification_failure_policy": "advisory",
+      "target_view": "10-Day Forecast",
+      "verify_after_action": false,
+      "verify_goal_completion": false,
+      "weather_location": "Seattle"
+    },
+    "summary": "Show Weather forecast for Seattle and close Weather",
+    "type": "desktop_task"
+  },
+  "updated_at": "2026-09-01T01:03:42+00:00",
+  "user_query": "Open Weather, search for Seattle, show the 10-day forecast, then close Weather."
+}

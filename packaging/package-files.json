@@ -1,0 +1,15 @@
+{
+  "files": [
+    "README.md", "INSTALL.md", "AGENT_HANDOFF.md", "LICENSE", ".gitignore", "pyproject.toml",
+    "requirements.txt", "echopath.config.json", "credentials/README.md",
+    "bridges/codex_sdk/package.json", "bridges/_template/auth.example.json"
+  ],
+  "patterns": [
+    "src/echopath/**/*.py", "src/echopath/web/*.html", "src/echopath/web/*.css", "src/echopath/web/*.js",
+    "bridges/**/*.py", "bridges/**/*.md", "bridges/**/*.mjs",
+    "skills/**/*.md", "document/*.md",
+    "packaging/**/*.py", "packaging/**/*.sh", "packaging/**/*.c",
+    "packaging/**/*.icns", "packaging/**/*.md", "packaging/**/openai.yaml",
+    "packaging/package-files.json", "examples/**/*.md", "memory/consolidated/README.md"
+  ]
+}

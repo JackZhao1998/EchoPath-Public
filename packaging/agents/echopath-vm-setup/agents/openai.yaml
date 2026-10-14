@@ -1,0 +1,4 @@
+interface:
+  display_name: "EchoPath VM Setup"
+  short_description: "Create or link a VM desktop for EchoPath tasks"
+  default_prompt: "Use $echopath-vm-setup to set up a VM desktop for EchoPath and connect it."

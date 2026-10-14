@@ -1,0 +1,4 @@
+interface:
+  display_name: "EchoPath Setup"
+  short_description: "Install EchoPath and connect Codex or Claude Code"
+  default_prompt: "Use $echopath-setup to install EchoPath from this folder and configure my coding agent."

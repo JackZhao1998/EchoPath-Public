@@ -1,0 +1,729 @@
+{
+  "artifact_evidence": [],
+  "concrete_purpose_summary": "Open Stocks from Spotlight, search Amazon, select AMZN, click the 1W range, then quit Stocks.",
+  "consolidated_operations": [
+    {
+      "action": "hotkey",
+      "expected_outcome": "Spotlight search opens.",
+      "keys": [
+        "command",
+        "space"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Spotlight is ready for text input.",
+      "seconds": 0.4
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing Spotlight text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "expected_outcome": "Stocks is entered into Spotlight.",
+      "text": "Stocks"
+    },
+    {
+      "action": "press",
+      "expected_outcome": "Stocks opens or comes to the front.",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The Stocks window is visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Stocks search field is focused.",
+      "interval": 0.0,
+      "x": 560,
+      "y": 149
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing Stocks search text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "expected_outcome": "Amazon is entered into the Stocks search field.",
+      "text": "Amazon"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "AMZN appears in the Stocks search results.",
+      "seconds": 1.2
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Amazon stock result opens.",
+      "interval": 0.0,
+      "x": 555,
+      "y": 214
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The AMZN detail page and chart range controls are visible.",
+      "seconds": 1.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The AMZN chart switches to the 1W history range.",
+      "interval": 0.0,
+      "x": 900,
+      "y": 234
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "AMZN Past Week history is visible.",
+      "seconds": 0.6
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Stocks quits so the next replay starts from a closed app.",
+      "keys": [
+        "command",
+        "q"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Stocks is closed.",
+      "seconds": 0.6
+    }
+  ],
+  "consolidation": {
+    "created_for_public_example_pack": true,
+    "final_cleanup_step": "Command+Q quits Stocks after the 1W chart is visible.",
+    "recorded_from_live_desktop": true,
+    "visual_crop_policy": "Stable UI targets only; live price values are excluded from crop anchors where possible."
+  },
+  "created_at": "2026-08-31T23:56:01+00:00",
+  "generalization": {
+    "canonical": {
+      "app_name": "Stocks",
+      "company_search": "Amazon",
+      "final_state": "Stocks closed",
+      "history_range": "1W",
+      "ticker_symbol": "AMZN"
+    },
+    "intent_keys": [
+      "open stocks and show amazon one week history",
+      "show amazon 1w stock chart in stocks and close it"
+    ],
+    "kind": "local_gui_stocks_lookup",
+    "name": "Show One-Week History For A Stock In macOS Stocks",
+    "parameters": [
+      {
+        "canonical_value": "Stocks",
+        "name": "app_name"
+      },
+      {
+        "canonical_value": "Amazon",
+        "name": "company_search"
+      },
+      {
+        "canonical_value": "AMZN",
+        "name": "ticker_symbol"
+      },
+      {
+        "canonical_value": "1W",
+        "name": "history_range"
+      },
+      {
+        "canonical_value": "Stocks closed",
+        "name": "final_state"
+      }
+    ],
+    "purpose_summary": "Use the visible Stocks app to open a company result, switch the chart to one week, and quit the app."
+  },
+  "goal_coverage": "full",
+  "match_keys": [
+    "Direct replay: Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks."
+  ],
+  "platform": "darwin",
+  "memory_id": "local-demo-direct-stocks-amazon-1w-close",
+  "purpose_summary": "Open macOS Stocks, search for Amazon, show the AMZN one-week chart, and quit Stocks.",
+  "record_type": "consolidated_memory",
+  "replay_key": "Direct replay: Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks.",
+  "replay_task": {
+    "goal": "Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks.",
+    "payload": {
+      "actions": [
+        {
+          "action": "hotkey",
+          "expected_outcome": "Spotlight search opens.",
+          "keys": [
+            "command",
+            "space"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Spotlight is ready for text input.",
+          "seconds": 0.4
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing Spotlight text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "expected_outcome": "Stocks is entered into Spotlight.",
+          "text": "Stocks"
+        },
+        {
+          "action": "press",
+          "expected_outcome": "Stocks opens or comes to the front.",
+          "key": "enter"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The Stocks window is visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Stocks search field is focused.",
+          "interval": 0.0,
+          "x": 560,
+          "y": 149
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing Stocks search text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "expected_outcome": "Amazon is entered into the Stocks search field.",
+          "text": "Amazon"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "AMZN appears in the Stocks search results.",
+          "seconds": 1.2
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Amazon stock result opens.",
+          "interval": 0.0,
+          "x": 555,
+          "y": 214
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The AMZN detail page and chart range controls are visible.",
+          "seconds": 1.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The AMZN chart switches to the 1W history range.",
+          "interval": 0.0,
+          "x": 900,
+          "y": 234
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "AMZN Past Week history is visible.",
+          "seconds": 0.6
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Stocks quits so the next replay starts from a closed app.",
+          "keys": [
+            "command",
+            "q"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Stocks is closed.",
+          "seconds": 0.6
+        }
+      ],
+      "app": "Stocks",
+      "capture_after_action": true,
+      "final_state": "Stocks app closed",
+      "memory_replay_coordinate_copy_first": true,
+      "memory_replay_fallback_to_planning": false,
+      "memory_replay_visual_bindings": [],
+      "memory_replay_visual_reaim_required": false,
+      "replay_mode": "direct_replay",
+      "step_verification_failure_policy": "advisory",
+      "target_company": "Amazon",
+      "target_range": "1W",
+      "target_symbol": "AMZN",
+      "verify_after_action": false,
+      "verify_goal_completion": false
+    },
+    "summary": "Show Amazon one-week history in Stocks and close the app",
+    "type": "desktop_task"
+  },
+  "replayable": true,
+  "schema_version": 1,
+  "source": {
+    "session_id": "packaged-local-gui-memories",
+    "source_detail_path": null,
+    "task_id": "stocks-amazon-1w-close",
+    "trajectory_id": "packaged-local-gui-memories:stocks-amazon-1w-close",
+    "trajectory_path": null
+  },
+  "status": "active",
+  "steps": [
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Spotlight search opens.",
+        "keys": [
+          "command",
+          "space"
+        ]
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-01",
+      "step_index": 1,
+      "summary": "Spotlight search opens."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "Spotlight is ready for text input.",
+        "seconds": 0.4
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-02",
+      "step_index": 2,
+      "summary": "Spotlight is ready for text input."
+    },
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Any existing Spotlight text is selected.",
+        "keys": [
+          "command",
+          "a"
+        ]
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-03",
+      "step_index": 3,
+      "summary": "Any existing Spotlight text is selected."
+    },
+    {
+      "action": {
+        "action": "paste_text",
+        "expected_outcome": "Stocks is entered into Spotlight.",
+        "text": "Stocks"
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-04",
+      "step_index": 4,
+      "summary": "Stocks is entered into Spotlight."
+    },
+    {
+      "action": {
+        "action": "press",
+        "expected_outcome": "Stocks opens or comes to the front.",
+        "key": "enter"
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-05",
+      "step_index": 5,
+      "summary": "Stocks opens or comes to the front."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "The Stocks window is visible.",
+        "seconds": 2.0
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-06",
+      "step_index": 6,
+      "summary": "The Stocks window is visible."
+    },
+    {
+      "action": {
+        "action": "click",
+        "button": "left",
+        "clicks": 1,
+        "expected_outcome": "The Stocks search field is focused.",
+        "interval": 0.0,
+        "x": 560,
+        "y": 149
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-07",
+      "step_index": 7,
+      "summary": "The Stocks search field is focused."
+    },
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Any existing Stocks search text is selected.",
+        "keys": [
+          "command",
+          "a"
+        ]
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-08",
+      "step_index": 8,
+      "summary": "Any existing Stocks search text is selected."
+    },
+    {
+      "action": {
+        "action": "paste_text",
+        "expected_outcome": "Amazon is entered into the Stocks search field.",
+        "text": "Amazon"
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-09",
+      "step_index": 9,
+      "summary": "Amazon is entered into the Stocks search field."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "AMZN appears in the Stocks search results.",
+        "seconds": 1.2
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-10",
+      "step_index": 10,
+      "summary": "AMZN appears in the Stocks search results."
+    },
+    {
+      "action": {
+        "action": "click",
+        "button": "left",
+        "clicks": 1,
+        "expected_outcome": "The Amazon stock result opens.",
+        "interval": 0.0,
+        "x": 555,
+        "y": 214
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-11",
+      "step_index": 11,
+      "summary": "The Amazon stock result opens."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "The AMZN detail page and chart range controls are visible.",
+        "seconds": 1.0
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-12",
+      "step_index": 12,
+      "summary": "The AMZN detail page and chart range controls are visible."
+    },
+    {
+      "action": {
+        "action": "click",
+        "button": "left",
+        "clicks": 1,
+        "expected_outcome": "The AMZN chart switches to the 1W history range.",
+        "interval": 0.0,
+        "x": 900,
+        "y": 234
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-13",
+      "step_index": 13,
+      "summary": "The AMZN chart switches to the 1W history range."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "AMZN Past Week history is visible.",
+        "seconds": 0.6
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-14",
+      "step_index": 14,
+      "summary": "AMZN Past Week history is visible."
+    },
+    {
+      "action": {
+        "action": "hotkey",
+        "expected_outcome": "Stocks quits so the next replay starts from a closed app.",
+        "keys": [
+          "command",
+          "q"
+        ]
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-15",
+      "step_index": 15,
+      "summary": "Stocks quits so the next replay starts from a closed app."
+    },
+    {
+      "action": {
+        "action": "wait",
+        "expected_outcome": "Stocks is closed.",
+        "seconds": 0.6
+      },
+      "node_id": "local-demo-stocks-amazon-1w-close-step-16",
+      "step_index": 16,
+      "summary": "Stocks is closed."
+    }
+  ],
+  "successful_operations": [
+    {
+      "action": "hotkey",
+      "expected_outcome": "Spotlight search opens.",
+      "keys": [
+        "command",
+        "space"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Spotlight is ready for text input.",
+      "seconds": 0.4
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing Spotlight text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "expected_outcome": "Stocks is entered into Spotlight.",
+      "text": "Stocks"
+    },
+    {
+      "action": "press",
+      "expected_outcome": "Stocks opens or comes to the front.",
+      "key": "enter"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The Stocks window is visible.",
+      "seconds": 2.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Stocks search field is focused.",
+      "interval": 0.0,
+      "x": 560,
+      "y": 149
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Any existing Stocks search text is selected.",
+      "keys": [
+        "command",
+        "a"
+      ]
+    },
+    {
+      "action": "paste_text",
+      "expected_outcome": "Amazon is entered into the Stocks search field.",
+      "text": "Amazon"
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "AMZN appears in the Stocks search results.",
+      "seconds": 1.2
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The Amazon stock result opens.",
+      "interval": 0.0,
+      "x": 555,
+      "y": 214
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "The AMZN detail page and chart range controls are visible.",
+      "seconds": 1.0
+    },
+    {
+      "action": "click",
+      "button": "left",
+      "clicks": 1,
+      "expected_outcome": "The AMZN chart switches to the 1W history range.",
+      "interval": 0.0,
+      "x": 900,
+      "y": 234
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "AMZN Past Week history is visible.",
+      "seconds": 0.6
+    },
+    {
+      "action": "hotkey",
+      "expected_outcome": "Stocks quits so the next replay starts from a closed app.",
+      "keys": [
+        "command",
+        "q"
+      ]
+    },
+    {
+      "action": "wait",
+      "expected_outcome": "Stocks is closed.",
+      "seconds": 0.6
+    }
+  ],
+  "tags": [
+    "example",
+    "local-gui",
+    "stocks",
+    "macos",
+    "direct-replay"
+  ],
+  "task": {
+    "goal": "Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks.",
+    "payload": {
+      "actions": [
+        {
+          "action": "hotkey",
+          "expected_outcome": "Spotlight search opens.",
+          "keys": [
+            "command",
+            "space"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Spotlight is ready for text input.",
+          "seconds": 0.4
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing Spotlight text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "expected_outcome": "Stocks is entered into Spotlight.",
+          "text": "Stocks"
+        },
+        {
+          "action": "press",
+          "expected_outcome": "Stocks opens or comes to the front.",
+          "key": "enter"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The Stocks window is visible.",
+          "seconds": 2.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Stocks search field is focused.",
+          "interval": 0.0,
+          "x": 560,
+          "y": 149
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Any existing Stocks search text is selected.",
+          "keys": [
+            "command",
+            "a"
+          ]
+        },
+        {
+          "action": "paste_text",
+          "expected_outcome": "Amazon is entered into the Stocks search field.",
+          "text": "Amazon"
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "AMZN appears in the Stocks search results.",
+          "seconds": 1.2
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The Amazon stock result opens.",
+          "interval": 0.0,
+          "x": 555,
+          "y": 214
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "The AMZN detail page and chart range controls are visible.",
+          "seconds": 1.0
+        },
+        {
+          "action": "click",
+          "button": "left",
+          "clicks": 1,
+          "expected_outcome": "The AMZN chart switches to the 1W history range.",
+          "interval": 0.0,
+          "x": 900,
+          "y": 234
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "AMZN Past Week history is visible.",
+          "seconds": 0.6
+        },
+        {
+          "action": "hotkey",
+          "expected_outcome": "Stocks quits so the next replay starts from a closed app.",
+          "keys": [
+            "command",
+            "q"
+          ]
+        },
+        {
+          "action": "wait",
+          "expected_outcome": "Stocks is closed.",
+          "seconds": 0.6
+        }
+      ],
+      "app": "Stocks",
+      "capture_after_action": true,
+      "final_state": "Stocks app closed",
+      "memory_replay_coordinate_copy_first": true,
+      "memory_replay_fallback_to_planning": false,
+      "memory_replay_visual_bindings": [],
+      "memory_replay_visual_reaim_required": false,
+      "replay_mode": "direct_replay",
+      "step_verification_failure_policy": "advisory",
+      "target_company": "Amazon",
+      "target_range": "1W",
+      "target_symbol": "AMZN",
+      "verify_after_action": false,
+      "verify_goal_completion": false
+    },
+    "summary": "Show Amazon one-week history in Stocks and close the app",
+    "type": "desktop_task"
+  },
+  "updated_at": "2026-08-31T23:56:01+00:00",
+  "user_query": "Direct replay: Search and open the Stocks app, search for Amazon, click into it, switch the chart to 1 week, then close Stocks."
+}
