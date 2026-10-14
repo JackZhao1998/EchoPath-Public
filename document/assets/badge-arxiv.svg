@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="148" height="28" viewBox="0 0 148 28" role="img" aria-labelledby="title desc">
+  <title id="title">Paper: arXiv 2609.16635</title>
+  <desc id="desc">Read EchoPath: Execution-Level Replayable Memory for GUI Agents on arXiv.</desc>
+  <rect x=".5" y=".5" width="147" height="27" rx="14" fill="#fff1ee" stroke="#e8ccc5"/>
+  <g fill="none" stroke="#a44836" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14.5 7.5h6l3 3v10h-9z"/>
+    <path d="M20.5 7.5v3h3M17 14h4M17 17h4"/>
+  </g>
+  <text x="31" y="18.5" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#a44836">arXiv · 2609.16635</text>
+</svg>
