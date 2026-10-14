@@ -2,8 +2,8 @@
 
 <h1>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-wordmark-dark.svg">
-    <img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" align="middle" alt="EchoPath">
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-wordmark-dark.svg">
+    <img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-wordmark-light.svg" width="300" height="72" align="middle" alt="EchoPath">
   </picture>
   (Windows)
 </h1>
@@ -12,9 +12,9 @@
 <p>Desktop workflows your agent can learn and reuse.</p>
 
 <p>
-  <a href="document/mcp_architecture.md"><img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/badge-mcp.svg" height="28" alt="MCP compatible"></a>
-  <a href="INSTALL.md"><img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/badge-python.svg" height="28" alt="Python 3.10 or newer"></a>
-  <a href="LICENSE"><img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/badge-license.svg" height="28" alt="MIT license"></a>
+  <a href="document/mcp_architecture.md"><img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/badge-mcp.svg" height="28" alt="MCP compatible"></a>
+  <a href="INSTALL.md"><img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/badge-python.svg" height="28" alt="Python 3.10 or newer"></a>
+  <a href="LICENSE"><img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/badge-license.svg" height="28" alt="MIT license"></a>
 </p>
 
 <p>
@@ -27,8 +27,8 @@
 </div>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-hero-dark.svg">
-  <img src="https://raw.githubusercontent.com/JackZhao1998/EchoPath-Public/main/document/assets/echopath-hero-light.svg" width="1600" alt="A good run today. A head start tomorrow. Complete a task, keep its successful steps and visual anchors, and reuse the workflow with checks on the current screen.">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-hero-dark.svg">
+  <img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/echopath-hero-light.svg" width="1600" alt="A good run today. A head start tomorrow. Complete a task, keep its successful steps and visual anchors, and reuse the workflow with checks on the current screen.">
 </picture>
 
 EchoPath runs tasks across desktop apps, turns successful runs into local
