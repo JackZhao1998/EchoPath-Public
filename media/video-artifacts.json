@@ -19,7 +19,7 @@
       "sha256": "aabe328fcf686c96232258ddab016e2bfbcf66e50462dc0f5e6106a874337191",
       "validation": "Fully decoded without errors; 36 seconds/1080 frames at 1080p/30 fps; seven chapters; scene starts on musical bars; synchronized captions; -16.01 LUFS and -1.03 dBTP; combined examples page visually inspected in the encoded video. Savings percentages are user-supplied provisional estimates pending benchmark validation.",
       "poster": "introduction/EchoPath-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/fd8e4267-a16f-42fc-8a46-0e2ad8ca02ac"
+      "github_attachment_url": "https://github.com/user-attachments/assets/38a42ba6-9bce-48f5-bbac-ca1a377b9bac"
     },
     {
       "title": "Installation tutorial (macOS)",
@@ -38,7 +38,7 @@
       "sha256": "6e456fa327da2a2bdad5a52a6fefc4b3718af822ec08a7c1cfc4b5ffb2ee7f71",
       "validation": "Matches the previously full-decoded and verified video.",
       "poster": "installation/EchoPath-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/0376afc8-3d75-48cb-8f1c-21b23f829fea"
+      "github_attachment_url": "https://github.com/user-attachments/assets/bb69b056-6703-49f8-bddc-d4214874ce80"
     },
     {
       "title": "3D Slicer",
@@ -56,7 +56,7 @@
       "sha256": "0ec1d77dde5d870daa82bfbd56b1df0e030945e42f89f1c374894b4c58865301",
       "validation": "Matches the previously full-decoded and verified video.",
       "poster": "demos/slicer/echopath-slicer-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/b3b97a96-7d68-443e-a66b-e89795e39098"
+      "github_attachment_url": "https://github.com/user-attachments/assets/e509627c-a4bf-4539-a4e8-75e0f08c896e"
     },
     {
       "title": "ImageJ",
@@ -74,7 +74,7 @@
       "sha256": "29cf827f4d51560523204f5048fcfa9e7454d804ecae81e77a1d693acd795f44",
       "validation": "Matches the previously full-decoded and verified video.",
       "poster": "demos/imagej/echopath-imagej-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/ab280e6a-5d96-4de9-9fc4-4a137a7ec288"
+      "github_attachment_url": "https://github.com/user-attachments/assets/659a8210-78ce-4f7b-a05f-c9ba83eacba7"
     },
     {
       "title": "LibreOffice Calc",
@@ -92,7 +92,7 @@
       "sha256": "07ca61b1a839ad5010b7f8ae22ed5045838b176ae7b57dfe28c67e65b6225525",
       "validation": "Matches the previously full-decoded and verified video.",
       "poster": "demos/calc/echopath-calc-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/8d53670e-66dd-4300-aca5-dcc807f40601"
+      "github_attachment_url": "https://github.com/user-attachments/assets/d11f2d9e-84c1-4107-82f9-abe8e0d6b603"
     },
     {
       "title": "FreeCAD",
@@ -110,7 +110,7 @@
       "sha256": "bcd1b340f8a5990ac549f4c40b9b3da5684a01d65ec49fed52904fc75173f49d",
       "validation": "Matches the previously full-decoded and verified video.",
       "poster": "demos/freecad/echopath-freecad-poster.jpg",
-      "github_attachment_url": "https://github.com/user-attachments/assets/a3950a2b-c6b6-45b0-992d-bfd6eeb0fc85"
+      "github_attachment_url": "https://github.com/user-attachments/assets/dacec34d-66b9-4c62-b0ad-e2b7f65608ad"
     },
     {
       "title": "QGIS",
@@ -128,7 +128,7 @@
       "fps": 24.0,
       "bytes": 4538156,
       "sha256": "60e6ee5434dae9c7164fb144815318d1d40260b9ac192de0844b71f0e8d3573e",
-      "github_attachment_url": "https://github.com/user-attachments/assets/db2f52be-6f14-4dcc-a000-7295e05ebe85"
+      "github_attachment_url": "https://github.com/user-attachments/assets/6ea890c3-0b52-449c-bc35-13d91d058119"
     },
     {
       "title": "Audacity",
@@ -146,7 +146,7 @@
       "fps": 24.0,
       "bytes": 3931077,
       "sha256": "a5fe2ea0b335d6e54d6fb262af6123c2cc27d9dffd1a82a7d97c821764b9cf29",
-      "github_attachment_url": "https://github.com/user-attachments/assets/34efd07d-bba8-411a-98f9-16034809b60d"
+      "github_attachment_url": "https://github.com/user-attachments/assets/735affcc-1e3b-414f-9b7d-570ff8a5aa98"
     }
   ],
   "unfinished_software_videos": []
