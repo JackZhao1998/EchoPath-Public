@@ -20,18 +20,19 @@ Desktop workflows your agent can learn and reuse.</p>
 </p>
 
 <p>
-  <sub>A joint work of <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics">JHU Applied Mathematics &amp; Statistics</a> and <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence">Amazon AGI</a></sub>
+  <a href="https://arxiv.org/abs/2609.16635" title="EchoPath: Execution-Level Replayable Memory for GUI Agents"><img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/badge-arxiv.svg" height="28" alt="Paper: arXiv 2609.16635"></a>
+  &nbsp;
+  <a href="https://clea-neurips.github.io/" title="Accepted poster at the NeurIPS 2026 Workshop on Continual Learning for Enterprise AI Agents"><img src="https://github.com/JackZhao1998/EchoPath-Public/raw/main/document/assets/badge-neurips-clea.svg" height="28" alt="Accepted at NeurIPS-CLEA 2026 (poster)"></a>
 </p>
 
 <p>
-  <strong>Paper:</strong> <a href="https://arxiv.org/abs/2609.16635">EchoPath: Execution-Level Replayable Memory for GUI Agents</a><br>
-  Accepted at <a href="https://clea-neurips.github.io/" title="NeurIPS 2026 Workshop on Continual Learning for Enterprise AI Agents"><strong>NeurIPS-CLEA 2026</strong></a> (poster)
+  <sub>A joint work of <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics"><strong>JHU Applied Mathematics &amp; Statistics</strong></a> and <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence"><strong>Amazon AGI</strong></a></sub>
 </p>
 
 <p>
-  <a href="#installation"><strong>Get started →</strong></a> ·
-  <a href="#watch-echopath">Watch the film</a> ·
-  <a href="#software-demos">Software demos</a> ·
+  <a href="#installation"><strong>Get&nbsp;started&nbsp;→</strong></a> &nbsp;&middot;&nbsp;
+  <a href="#watch-echopath">Watch&nbsp;the&nbsp;film</a> &nbsp;&middot;&nbsp;
+  <a href="#software-demos">Software&nbsp;demos</a> &nbsp;&middot;&nbsp;
   <a href="#documentation">Documentation</a>
 </p>
 
