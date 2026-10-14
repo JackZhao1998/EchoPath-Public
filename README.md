@@ -26,7 +26,13 @@ Desktop workflows your agent can learn and reuse.</p>
 </p>
 
 <p>
-  <sub>A joint work of <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics"><strong>JHU Applied Mathematics &amp; Statistics</strong></a> and <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence"><strong>Amazon AGI</strong></a></sub>
+  <sub><strong>A joint work of</strong></sub>
+</p>
+
+<p>
+  <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics"><picture><source media="(prefers-color-scheme: dark)" srcset="document/assets/partner-jhu-ams-dark.svg"><img src="document/assets/partner-jhu-ams-light.svg" width="268" height="64" alt="Johns Hopkins University · Applied Mathematics &amp; Statistics"></picture></a>
+  &nbsp;
+  <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence"><picture><source media="(prefers-color-scheme: dark)" srcset="document/assets/partner-amazon-agi-dark.svg"><img src="document/assets/partner-amazon-agi-light.svg" width="268" height="64" alt="Amazon AGI · Artificial General Intelligence"></picture></a>
 </p>
 
 <p>

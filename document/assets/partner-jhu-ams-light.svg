@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="268" height="64" viewBox="0 0 268 64" role="img" aria-labelledby="title desc">
+  <title id="title">Johns Hopkins University · Applied Mathematics &amp; Statistics</title>
+  <desc id="desc">EchoPath joint work: Johns Hopkins University Department of Applied Mathematics and Statistics.</desc>
+  <rect x=".5" y=".5" width="267" height="63" rx="12" fill="#f6f9fe" stroke="#d3e0f0"/>
+  <rect x="12" y="14" width="36" height="36" rx="9" fill="#e2ecfa"/>
+  <text x="30" y="36.5" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing=".2" fill="#003b71">JHU</text>
+  <text x="60" y="28" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="15.5" font-weight="600" fill="#003b71">Johns Hopkins</text>
+  <text x="60" y="45" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11.2" fill="#526984">Applied Mathematics &amp; Statistics</text>
+  <path d="M246 16h6v6m0-6-7 7" fill="none" stroke="#6e8aab" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
