@@ -1,3 +1,5 @@
+Public repository update: this walkthrough was recorded before the release repository was created. Use these current commands rather than the original repository URL visible in the recording. Windows users should follow the windows-version branch INSTALL.md.
+
 ECHOPATH — INSTALLATION VIDEO COMPANION
 
 Watch: EchoPath-installation-macOS.mp4 (4 minutes 33 seconds)
@@ -6,12 +8,12 @@ The film uses isolated UI previews with example settings. Run these steps in you
 AGENT-LED ROUTE
 Give Codex or Claude Code this prompt:
 
-Install EchoPath from https://github.com/JackZhao1998/EchoPath. Read INSTALL.md and follow packaging/agents/echopath-setup/SKILL.md. Use my existing model login, build the Mac app, and leave VM integration off for now.
+Install EchoPath from https://github.com/JackZhao1998/EchoPath-Public.git using branch main. Read INSTALL.md and follow packaging/agents/echopath-setup/SKILL.md. Use my existing model login, build the Mac app, and leave VM integration off for now.
 
 MANUAL ROUTE
 Obtain the source from the repository or a source ZIP. For Git:
 
-git clone https://github.com/JackZhao1998/EchoPath.git
+git clone --branch main --single-branch https://github.com/JackZhao1998/EchoPath-Public.git EchoPath
 cd EchoPath
 
 1. Prepare macOS
@@ -70,7 +72,7 @@ With MCP, use the installed $echopath skill in Codex or /echopath in Claude Code
 REFERENCE
 Installation: INSTALL.md
 VM prerequisites and troubleshooting: document/vm_setup.md
-Repository: https://github.com/JackZhao1998/EchoPath
+Repository: https://github.com/JackZhao1998/EchoPath-Public
 
 A saved SSH alias such as echopath-macos is an example, not a preconfigured VM. Use your guest's actual hostname or SSH configuration.
 After granting macOS guest permissions, restart its bridge from a terminal inside that guest:

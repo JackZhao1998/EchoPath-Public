@@ -22,6 +22,13 @@ dependencies = [
     "pyperclip>=1.8",
 ]
 
+[project.urls]
+Homepage = "https://github.com/JackZhao1998/EchoPath-Public"
+Repository = "https://github.com/JackZhao1998/EchoPath-Public"
+Issues = "https://github.com/JackZhao1998/EchoPath-Public/issues"
+Documentation = "https://github.com/JackZhao1998/EchoPath-Public/blob/main/INSTALL.md"
+Changelog = "https://github.com/JackZhao1998/EchoPath-Public/blob/main/CHANGELOG.md"
+
 [project.optional-dependencies]
 evaluation = [
     "websocket-client>=1.6,<2",

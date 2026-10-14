@@ -72,9 +72,20 @@ memory/consolidated/records/*
 !memory/consolidated/index.json
 memory/consolidated/crops/*
 !memory/consolidated/records/.gitkeep
-!memory/consolidated/records/consolidated-local-demo-*.json
-!memory/consolidated/crops/local-demo-*/
-!memory/consolidated/crops/local-demo-*/*.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/
+!memory/consolidated/crops/local-demo-weather-location-forecast-close/
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/amzn-result-row-550d319cb949.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/range-1w-selected-b8bcb9c34fe6.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/range-1w-unselected-41a21b5b61f9.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/search-field-amazon-focused-d4fb597006dc.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/search-field-amazon-inactive-1501af92c537.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/search-field-empty-focused-cb794299ab46.png
+!memory/consolidated/crops/local-demo-stocks-amazon-1w-close/search-field-empty-inactive-edb62ee3631f.png
+!memory/consolidated/crops/local-demo-weather-location-forecast-close/weather-search-field-empty-b7a978fbf354.png
+!memory/consolidated/records/consolidated-local-demo-direct-stocks-amazon-1w-close.json
+!memory/consolidated/records/consolidated-local-demo-direct-weather-location-forecast-close.json
+!memory/consolidated/records/consolidated-local-demo-stocks-amazon-1w-close.json
+!memory/consolidated/records/consolidated-local-demo-weather-location-forecast-close.json
 
 # Local test suites; retained on the development machine, excluded from Git.
 /test/
@@ -83,3 +94,11 @@ test_output/
 testing_artifacts/
 *.events.jsonl
 examples/local_gui_memory_pack/test_output/
+
+# Retired local developer and benchmark material.
+/AGENT_HANDOFF.md
+/site/
+
+# Deprecated packaged Clock examples.
+/memory/consolidated/records/*clock-timer-000015-close.json
+/memory/consolidated/crops/local-demo-clock-timer-000015-close/

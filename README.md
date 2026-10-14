@@ -9,6 +9,8 @@
 
 <p><strong>macOS version</strong></p>
 
+<p><a href="https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version">Windows version →</a></p>
+
 <p><strong>Good work, on repeat.</strong></p>
 <p>Desktop workflows your agent can learn and reuse.</p>
 
@@ -174,51 +176,55 @@ https://github.com/user-attachments/assets/bb69b056-6703-49f8-bddc-d4214874ce80
 [Setup commands](media/installation/Setup-commands.txt) ·
 [Video file](media/installation/EchoPath-installation-macOS.mp4)
 
+The recording predates this public repository; use the current installation
+commands below and the updated companion setup commands.
 The walkthrough covers macOS. For Windows, use the
 [Windows app and VM guide](document/windows_setup.md).
+
+This branch provides the **macOS native app**. Windows users should use the
+[Windows release branch](https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version) for the tray app and
+managed VirtualBox guest setup.
 
 You need **Python 3.10+** with `venv` and pip, a configured model backend,
 and an active desktop or connected guest. For the Mac app, Python 3.12 is
 recommended; macOS 13+ and Xcode Command Line Tools are required.
-
-Keep the source folder in a permanent location: the app and MCP registration
-use its absolute path.
+Keep the source folder in a permanent location.
 
 ### With your coding agent
 
-Share this repository or its downloaded source folder with Codex or Claude
-Code, then ask:
+Share this branch or its downloaded folder, then ask:
 
 ```text
-Install EchoPath from the repository or folder I shared. Read INSTALL.md and follow
-packaging/agents/echopath-setup/SKILL.md. Connect this coding agent using
-my existing model login. Include the native app on macOS or Windows;
-leave VM integration, JEV, and recording off for now.
+Install EchoPath from https://github.com/JackZhao1998/EchoPath-Public.git using branch main.
+Read INSTALL.md and follow packaging/agents/echopath-setup/SKILL.md.
+Connect this coding agent using my existing model login and include the macOS
+native app. Leave VM integration, JEV, and recording off for now.
 ```
 
 ### From a terminal
 
-From the source folder, install for a signed-in Codex CLI:
+Clone the macOS branch into a new permanent folder:
 
 ```bash
+git clone --branch main --single-branch https://github.com/JackZhao1998/EchoPath-Public.git EchoPath
+cd EchoPath
 python3 packaging/setup.py install --backend codex --agent codex --app
 ```
 
-- **Windows:** use `python` or `py -3` instead of `python3`.
-- **Linux:** omit `--app`; use the web Control Room.
-- **Claude Code:** use `--backend claude --agent claude`.
+For Claude Code, use `--backend claude --agent claude`. If you already have this
+branch, run the installation command from its source folder without cloning
+again. For CLI/web-only use on Linux or Windows, omit `--app`; on Windows use
+`python` or `py -3` instead of `python3`.
 
 The helper creates a private environment, configures the backend, verifies MCP,
 and connects the selected agent and skills. **Restart your coding agent after
 setup** so it loads the new tools.
 
-On macOS, open `~/Applications/EchoPath.app`, grant **EchoPath** Accessibility
-and Screen Recording, then quit and reopen it. Keep it running during local
-GUI work. On Windows, open **EchoPath** from the Start menu for tray controls.
+Open `~/Applications/EchoPath.app`, grant **EchoPath** Accessibility and Screen
+Recording, then quit and reopen it. Keep it running during local GUI work.
 
-See [INSTALL.md](INSTALL.md) for full prerequisites, verification, updates,
-and repair. Use the [Windows guide](document/windows_setup.md) for Windows guest
-creation, or the usage guide for [other MCP hosts](document/usage.md#other-mcp-hosts)
+See [INSTALL.md](INSTALL.md) for full prerequisites, verification, updates, and
+repair. See the usage guide for [other MCP hosts](document/usage.md#other-mcp-hosts)
 and the [web Control Room](document/usage.md#control-room).
 
 ## Your first task
@@ -242,14 +248,15 @@ workflow, and use it as the basis for the next task.
 | Desktop | What you need |
 | --- | --- |
 | **macOS** | The native EchoPath app, with Accessibility and Screen Recording permissions. |
-| **Windows** | An active, signed-in, unlocked desktop; native tray controls and the web Control Room are available. |
+| **Windows** | CLI/web runtime on an active, unlocked desktop; use the [Windows release](https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version) for native tray controls. |
 | **Linux** | A graphical X11 session, Tk, `scrot`, and clipboard support such as `xclip`; use the CLI or web Control Room. |
 
 For a separate workspace, connect a guest desktop:
 
 - **Linux on a Mac:** managed creation with Lima.
 - **macOS on an Apple-silicon Mac:** create a Tart guest, then link it over SSH.
-- **Windows on Windows:** managed creation with VirtualBox and a Windows x64 ISO.
+- **Windows on Windows:** managed VirtualBox creation is available in the
+  [Windows release](https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version), using a Windows x64 ISO.
 - **Existing desktops:** connect a prepared Linux/macOS guest over SSH, or use
   a configured desktop bridge.
 
@@ -281,7 +288,7 @@ locations, backend boundaries, and advanced controls.
 | [Installation](INSTALL.md) | Prerequisites, agent setup, verification, updates, and repair. |
 | [Using EchoPath](document/usage.md) | Control Room, model bridges, MCP tasks, CLI, memory, and troubleshooting. |
 | [VM setup](document/vm_setup.md) | Linux and macOS guests, SSH connections, and desktop bridges. |
-| [Windows setup](document/windows_setup.md) | Windows tray app, VirtualBox guests, and manual takeover. |
+| [Windows setup](document/windows_setup.md) | Windows branch selection, tray app, VirtualBox guests, and manual takeover. |
 | [Model bridges](bridges/README.md) | Available backends, authentication, and the bridge contract. |
 | [MCP architecture](document/mcp_architecture.md) | Tools, resources, prompts, and the runtime boundary. |
 | [Segmented replay](document/native_segments.md) | Optional host-assisted native steps inside a learned workflow. |
@@ -289,7 +296,7 @@ locations, backend boundaries, and advanced controls.
 ## Contributing
 
 Bug reports, documentation fixes, new model bridges, and reproducible workflow
-examples are welcome. In an [issue](https://github.com/JackZhao1998/EchoPath/issues),
+examples are welcome. In an [issue](https://github.com/JackZhao1998/EchoPath-Public/issues),
 include the operating system, backend, steps to reproduce, and sanitized logs.
 
 Core code lives in [`src/echopath/`](src/echopath/). Local regression suites in
@@ -298,6 +305,9 @@ Core code lives in [`src/echopath/`](src/echopath/). Local regression suites in
 inspection, or start a new backend from the
 [bridge template](bridges/_template/README.md). Keep credentials, local
 configuration, and private task data out of contributions.
+
+Release details and verification steps are in [RELEASE.md](RELEASE.md);
+changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
