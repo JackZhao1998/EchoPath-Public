@@ -7,31 +7,20 @@
   </picture>
 </h1>
 
-<p><strong>macOS version</strong></p>
+<p><strong>macOS version</strong> &nbsp;&middot;&nbsp; <a href="https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version">Windows version →</a></p>
 
-<p><a href="https://github.com/JackZhao1998/EchoPath-Public/tree/windows-version">Windows version →</a></p>
+<p><strong>Good work, on repeat.</strong><br>
+Desktop workflows your agent can learn and reuse.</p>
 
-<p><strong>Good work, on repeat.</strong></p>
-<p>Desktop workflows your agent can learn and reuse.</p>
-
-<p><strong>A joint work of</strong></p>
-<table>
-  <tr>
-    <td align="center" width="50%">
-      <a href="https://engineering.jhu.edu/ams/"><strong>Johns Hopkins University</strong></a><br>
-      Department of Applied Mathematics &amp; Statistics
-    </td>
-    <td align="center" width="50%">
-      <a href="https://amazon.jobs/content/en/teams/agi"><strong>Amazon AGI</strong></a><br>
-      Artificial General Intelligence
-    </td>
-  </tr>
-</table>
 
 <p>
   <a href="document/mcp_architecture.md"><img src="document/assets/badge-mcp.svg" height="28" alt="MCP compatible"></a>
   <a href="INSTALL.md"><img src="document/assets/badge-python.svg" height="28" alt="Python 3.10 or newer"></a>
   <a href="LICENSE"><img src="document/assets/badge-license.svg" height="28" alt="MIT license"></a>
+</p>
+
+<p>
+  <sub>A joint work of <a href="https://engineering.jhu.edu/ams/" title="Johns Hopkins University Department of Applied Mathematics and Statistics">JHU Applied Mathematics &amp; Statistics</a> and <a href="https://amazon.jobs/content/en/teams/agi" title="Amazon Artificial General Intelligence">Amazon AGI</a></sub>
 </p>
 
 <p>
