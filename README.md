@@ -100,10 +100,6 @@ completed tasks in specialist apps.
 
 ## Software demos
 
-Recorded desktop tasks in a Windows VM, using public or synthetic inputs.
-Actions play at normal speed; setup, waiting, and recovery periods are cut.
-These are planned runs, not replay benchmarks.
-
 <details>
 <summary><strong>Medical imaging · 3D Slicer</strong> — 1:24</summary>
 
